@@ -15,7 +15,7 @@ import bryan.roca.mareu.models.Meeting;
 public class DummyMeetingGenerator {
 
     public static List<Meeting> DUMMY_MEETINGS = Arrays.asList();
-
+    
     public static List<Meeting> generateMeetings() {
         return new ArrayList<>(DUMMY_MEETINGS);
     }

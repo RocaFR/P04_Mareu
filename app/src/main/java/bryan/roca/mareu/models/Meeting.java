@@ -50,5 +50,91 @@ public class Meeting {
         this.participantsList = pParticipantsList;
     }
 
-    //TODO Implement getters & setters
+    ///
+    /// GETTERS
+    ///
+
+    /**
+     * Get the beginning {@link Date} of the Meeting.
+     * @return the Date where the Meeting begin
+     */
+    public Date getDateBegin() {
+        return dateBegin;
+    }
+
+    /**
+     * Get the end {@link Date} of the Meeting.
+     * @return the Date where the Meeting ending
+     */
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    /**
+     * Get the place ({@link MeetingRoom}) where she will take place.
+     * @return
+     */
+    public MeetingRoom getPlace() {
+        return place;
+    }
+
+    /**
+     * Get the subject about the Meeting.
+     * @return the subject
+     */
+    public String getSubject() {
+        return subject;
+    }
+
+    /**
+     * Get the participants ({@link Collaborator}) list of the Meeting.
+     * @return
+     */
+    public List<Collaborator> getParticipantsList() {
+        return participantsList;
+    }
+
+    ///
+    /// SETTERS
+    ///
+
+    /**
+     * Set the beginning {@link Date} of the Meeting.
+     * @param pDateBegin
+     */
+    public void setDateBegin(Date pDateBegin) {
+        dateBegin = pDateBegin;
+    }
+
+    /**
+     * Set the ending {@link Date} of the Meeting.
+     * @param pDateEnd
+     */
+    public void setDateEnd(Date pDateEnd) {
+        dateEnd = pDateEnd;
+    }
+
+    /**
+     * Set the place ({@link MeetingRoom}) where she will take place.
+     * @param pPlace
+     */
+    public void setPlace(MeetingRoom pPlace) {
+        place = pPlace;
+    }
+
+    /**
+     * Set the subject about the Meeting.
+     * @param pSubject
+     */
+    public void setSubject(String pSubject) {
+        subject = pSubject;
+    }
+
+    /**
+     * Set the participants ({@link Collaborator}) list of the Meeting.
+     * @param pParticipantsList
+     */
+    public void setParticipantsList(List<Collaborator> pParticipantsList) {
+        participantsList = pParticipantsList;
+    }
 }

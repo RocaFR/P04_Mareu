@@ -4,6 +4,7 @@ import java.util.List;
 
 import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
+import bryan.roca.mareu.models.MeetingRoom;
 
 /**
  * Mareu - bryan.roca.mareu.service
@@ -12,7 +13,18 @@ import bryan.roca.mareu.models.Meeting;
  */
 public interface MeetingApiService {
 
+    /**
+     * Get the Meeting list for all Meeting Room
+     * @return
+     */
     List<Meeting> getMeetings();
+
+    /**
+     * Get Meeting list for this Meeting Room
+     * @param pMeetingRoom
+     * @return
+     */
+    List<Meeting> getMeetings(MeetingRoom pMeetingRoom);
 
     void addMeeting(Meeting pMeeting);
 
