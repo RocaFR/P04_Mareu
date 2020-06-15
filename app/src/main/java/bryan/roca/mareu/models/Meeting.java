@@ -49,4 +49,6 @@ public class Meeting {
         this.subject = pSubject;
         this.participantsList = pParticipantsList;
     }
+
+    //TODO Implement getters & setters
 }
