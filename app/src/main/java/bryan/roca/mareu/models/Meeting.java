@@ -1,5 +1,8 @@
 package bryan.roca.mareu.models;
 
+import org.joda.time.DateTime;
+import org.joda.time.Interval;
+
 import java.util.Date;
 import java.util.List;
 
@@ -16,11 +19,15 @@ public class Meeting {
     /**
      * The begeinning date of the Meeting represented by a day and a hour.
      */
-    private Date dateBegin;
+    private DateTime dateBegin;
     /**
      * The end date of the Meeting represented by a day and a hour.
      */
-    private Date dateEnd;
+    private DateTime dateEnd;
+    /**
+     * The interval uses for check overlaps
+     */
+    private Interval interval;
     /**
      * The place were the Meeting will take place. He is represented by a MeetingRoom.
      */
@@ -42,9 +49,10 @@ public class Meeting {
      * @param pSubject Short summary
      * @param pParticipantsList List of {@link Collaborator participants}
      */
-    public Meeting(Date pDateBegin, Date pDateEnd, MeetingRoom pPlace, String pSubject, List<Collaborator> pParticipantsList) {
+    public Meeting(DateTime pDateBegin, DateTime pDateEnd, MeetingRoom pPlace, String pSubject, List<Collaborator> pParticipantsList) {
         this.dateBegin = pDateBegin;
         this.dateEnd = pDateEnd;
+        interval = new Interval(pDateBegin, pDateEnd);
         this.place = pPlace;
         this.subject = pSubject;
         this.participantsList = pParticipantsList;
@@ -58,7 +66,7 @@ public class Meeting {
      * Get the beginning {@link Date} of the Meeting.
      * @return the Date where the Meeting begin
      */
-    public Date getDateBegin() {
+    public DateTime getDateBegin() {
         return dateBegin;
     }
 
@@ -66,8 +74,16 @@ public class Meeting {
      * Get the end {@link Date} of the Meeting.
      * @return the Date where the Meeting ending
      */
-    public Date getDateEnd() {
+    public DateTime getDateEnd() {
         return dateEnd;
+    }
+
+    /**
+     * Get the Interval of the Meeting.
+     * @return the Interval from dateBegin and dateEnd
+     */
+    public Interval getInterval() {
+        return interval;
     }
 
     /**
@@ -102,7 +118,7 @@ public class Meeting {
      * Set the beginning {@link Date} of the Meeting.
      * @param pDateBegin
      */
-    public void setDateBegin(Date pDateBegin) {
+    public void setDateBegin(DateTime pDateBegin) {
         dateBegin = pDateBegin;
     }
 
@@ -110,8 +126,16 @@ public class Meeting {
      * Set the ending {@link Date} of the Meeting.
      * @param pDateEnd
      */
-    public void setDateEnd(Date pDateEnd) {
+    public void setDateEnd(DateTime pDateEnd) {
         dateEnd = pDateEnd;
+    }
+
+    /**
+     * <p>Update the Interval from dateBegin and dateEnd.<br>
+     * <strong>Set dateBegin and dateEnd before !</strong></p>
+     */
+    public void updateInterval() {
+        interval = new Interval(dateBegin, dateEnd);
     }
 
     /**

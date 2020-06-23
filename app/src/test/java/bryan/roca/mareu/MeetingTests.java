@@ -1,5 +1,6 @@
 package bryan.roca.mareu;
 
+import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,16 +29,6 @@ public class MeetingTests {
 
     @Before
     public void setup() {
-        //TODO create method
-        Date beginningDate = Calendar.getInstance().getTime();
-        Date endDate = Calendar.getInstance().getTime();
-        Calendar tmpDate = Calendar.getInstance();
-        tmpDate.setTime(endDate);
-        tmpDate.add(Calendar.MINUTE, 30);
-        endDate = tmpDate.getTime();
-
-        mMeetingRoom = new MeetingRoom("A");
-        mMeeting = new Meeting(beginningDate, endDate, mMeetingRoom, "Event Storming", Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
         mMeetingApiService = DI.getNewInstanceMeetingApiService();
     }
 
@@ -46,6 +37,7 @@ public class MeetingTests {
      */
     @Test
     public void canWeCreateNewMeetingRoom() {
+        this.configureAMeeting();
         assertNotNull(mMeetingRoom);
     }
 
@@ -54,6 +46,7 @@ public class MeetingTests {
      */
     @Test
     public void canWeCreateNewMeeting() {
+        this.configureAMeeting();
         assertNotNull(mMeeting);
     }
 
@@ -62,6 +55,7 @@ public class MeetingTests {
      */
     @Test
     public void canWeGetMeetingsList() {
+        this.configureAMeeting();
         List<Meeting> mMeetingList = mMeetingApiService.getMeetings();
         mMeetingApiService.addMeeting(mMeeting);
         assertTrue(mMeetingList.size() == 1);
@@ -72,6 +66,7 @@ public class MeetingTests {
      */
     @Test
     public void canWeAddMeeting() {
+        this.configureAMeeting();
         List<Meeting> mMeetingsList = mMeetingApiService.getMeetings();
         mMeetingApiService.addMeeting(mMeeting);
         assertTrue(mMeetingsList.contains(mMeeting));
@@ -86,5 +81,13 @@ public class MeetingTests {
         mMeetingApiService.addMeeting(mMeeting);
         mMeetingApiService.removeMeeting(mMeeting);
         assertFalse(mMeetingList.contains(mMeeting));
+    }
+
+    private void configureAMeeting() {
+        DateTime beginningDate = new DateTime();
+        DateTime endDate = beginningDate.minusMinutes(30);
+
+        mMeetingRoom = new MeetingRoom("A");
+        mMeeting = new Meeting(beginningDate, endDate, mMeetingRoom, "Event Storming", Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
     }
 }
