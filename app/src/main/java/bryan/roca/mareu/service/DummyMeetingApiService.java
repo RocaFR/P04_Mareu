@@ -1,7 +1,9 @@
 package bryan.roca.mareu.service;
 
-import android.view.View;
+import org.joda.time.DateTime;
+import org.joda.time.Interval;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import bryan.roca.mareu.models.Meeting;
@@ -15,7 +17,7 @@ import bryan.roca.mareu.models.MeetingRoom;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> mMeetingList = DummyMeetingGenerator.generateMeetings();
-    private List<Meeting> mMeetingListByMeetingRoom;
+
 
     @Override
     public List<Meeting> getMeetings() {
@@ -24,6 +26,7 @@ public class DummyMeetingApiService implements MeetingApiService {
 
     @Override
     public List<Meeting> getMeetings(MeetingRoom pMeetingRoom) {
+        List<Meeting> mMeetingListByMeetingRoom = new ArrayList<>();
         if (pMeetingRoom != null) {
             for (Meeting meeting : mMeetingList) {
                 if (pMeetingRoom.equals(meeting.getPlace())) {
@@ -35,12 +38,37 @@ public class DummyMeetingApiService implements MeetingApiService {
     }
 
     @Override
-    public void addMeeting(Meeting pMeeting) {
-        //TODO Implement this, filtered by mMeetingListByMeetingRoom
-        //USING PERIOD COMPARISON
-        // CREATE PERDIO FROM DATEBEGIN AND DATEEND
-        // THEN COMPARE THIS NEW PERIOD WITH THE MEETING LIST'S PERIODS
-        mMeetingList.add(pMeeting);
+    public boolean addMeeting(Meeting pMeeting) {
+        // Get the Meeting list for the pMeeting's Place
+        List<Meeting> mMeetingListByMeetingRoom = getMeetings(pMeeting.getPlace());
+        boolean isOverlap = false;
+
+        // Create the Interval for pMeeting
+        DateTime dateBegin = new DateTime(pMeeting.getDateBegin());
+        DateTime dateEnd = new DateTime(pMeeting.getDateEnd());
+        Interval interval = new Interval(dateBegin, dateEnd);
+
+        // Check if the Interval above exist in mMeetingListByMeetingRoom
+        if (mMeetingListByMeetingRoom.size() > 0) {
+            for (Meeting meeting : mMeetingListByMeetingRoom) {
+                DateTime dtBegin = new DateTime(meeting.getDateBegin());
+                DateTime dtEnd = new DateTime(meeting.getDateEnd());
+                Interval intervalTmp = new Interval(dtBegin, dtEnd);
+
+                if (interval.overlaps(intervalTmp)) {
+                    isOverlap = true;
+                    break;
+                }
+            }
+            if (!isOverlap) {
+                mMeetingList.add(pMeeting);
+                return true;
+            }
+        } else {
+            mMeetingList.add(pMeeting);
+            return true;
+        }
+        return false;
     }
 
     @Override

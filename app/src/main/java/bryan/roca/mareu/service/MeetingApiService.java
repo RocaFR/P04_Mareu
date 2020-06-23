@@ -26,7 +26,7 @@ public interface MeetingApiService {
      */
     List<Meeting> getMeetings(MeetingRoom pMeetingRoom);
 
-    void addMeeting(Meeting pMeeting);
+    boolean addMeeting(Meeting pMeeting);
 
     void removeMeeting(Meeting pMeeting);
 }

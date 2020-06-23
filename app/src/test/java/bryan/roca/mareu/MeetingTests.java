@@ -28,6 +28,7 @@ public class MeetingTests {
 
     @Before
     public void setup() {
+        //TODO create method
         Date beginningDate = Calendar.getInstance().getTime();
         Date endDate = Calendar.getInstance().getTime();
         Calendar tmpDate = Calendar.getInstance();
