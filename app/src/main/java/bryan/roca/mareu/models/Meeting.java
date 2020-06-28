@@ -25,7 +25,7 @@ public class Meeting {
      */
     private DateTime dateEnd;
     /**
-     * The interval uses for check overlaps
+     * The interval used for check among other the overlaps
      */
     private Interval interval;
     /**

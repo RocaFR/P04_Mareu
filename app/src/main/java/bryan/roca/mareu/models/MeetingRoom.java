@@ -35,17 +35,13 @@ public class MeetingRoom {
      * Return the current name of the Meeting Room.
      * @return the name
      */
-    public String getName() {
-        return this.name;
-    }
+    public String getName() { return this.name; }
 
     /**
      * Return the maximum capacity authorized.
      * @return the maximum number
      */
-    public int getMaxNumberCapacity() {
-        return this.maxNumberCapacity;
-    }
+    public int getMaxNumberCapacity() { return this.maxNumberCapacity; }
 
     //
     // SETTERS
