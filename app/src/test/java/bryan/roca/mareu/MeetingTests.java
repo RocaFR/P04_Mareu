@@ -77,6 +77,7 @@ public class MeetingTests {
      */
     @Test
     public void canWeRemoveMeeting() {
+        this.configureAMeeting();
         List<Meeting> mMeetingList = mMeetingApiService.getMeetings();
         mMeetingApiService.addMeeting(mMeeting);
         mMeetingApiService.removeMeeting(mMeeting);
@@ -85,9 +86,9 @@ public class MeetingTests {
 
     private void configureAMeeting() {
         DateTime beginningDate = new DateTime();
-        DateTime endDate = beginningDate.minusMinutes(30);
+        DateTime endDate = beginningDate.plusMinutes(30);
+        mMeetingRoom = mMeetingApiService.getMeetingRooms().get(0);
 
-        mMeetingRoom = new MeetingRoom("A");
         mMeeting = new Meeting(beginningDate, endDate, mMeetingRoom, "Event Storming", Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
     }
 }

@@ -17,6 +17,7 @@ import bryan.roca.mareu.models.MeetingRoom;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> mMeetingList = DummyMeetingGenerator.generateMeetings();
+    private List<MeetingRoom> mMeetingRoomsList = DummyMeetingGenerator.generateMeetingRooms();
 
     @Override
     public List<Meeting> getMeetings() {
@@ -73,5 +74,10 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void removeMeeting(Meeting pMeeting) {
         mMeetingList.remove(pMeeting);
+    }
+
+    @Override
+    public List<MeetingRoom> getMeetingRooms() {
+        return mMeetingRoomsList;
     }
 }
