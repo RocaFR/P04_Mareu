@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -23,12 +24,14 @@ import static org.junit.Assert.*;
  */
 public class MeetingTests {
 
-    Meeting mMeeting;
-    MeetingRoom mMeetingRoom;
+    private Meeting mMeeting;
+    private MeetingRoom mMeetingRoom;
     private MeetingApiService mMeetingApiService;
 
     @Before
-    public void setup() { mMeetingApiService = DI.getNewInstanceMeetingApiService(); }
+    public void setup() {
+        mMeetingApiService = DI.getNewInstanceMeetingApiService();
+    }
 
     /**
      * Assert we can create a new Meeting Room
@@ -37,6 +40,14 @@ public class MeetingTests {
     public void canWeCreateNewMeetingRoom() {
         this.configureAMeeting();
         assertNotNull(mMeetingRoom);
+    }
+
+    /**
+     * Assert we can get Meeting Rooms list
+     */
+    @Test
+    public void canWeGetMeetingRoomsList() {
+        assertFalse(mMeetingApiService.getMeetingRooms().isEmpty());
     }
 
     /**
@@ -60,7 +71,19 @@ public class MeetingTests {
     }
 
     /**
-     * Assert we can add Meeting with success
+     * Assert we can filter the Meeting list by Meeting Room
+     */
+    @Test
+    public void canWeFilterMeeting() {
+        this.configureAMeeting();
+        mMeetingApiService.addMeeting(mMeeting);
+
+        List<Meeting> filteredList = mMeetingApiService.getMeetings(mMeeting.getPlace());
+        assertTrue(filteredList.get(0).getPlace() == mMeeting.getPlace());
+    }
+
+    /**
+     * Assert we can add Meeting into empty list with success
      */
     @Test
     public void canWeAddMeeting() {
@@ -68,6 +91,50 @@ public class MeetingTests {
         List<Meeting> mMeetingsList = mMeetingApiService.getMeetings();
         mMeetingApiService.addMeeting(mMeeting);
         assertTrue(mMeetingsList.contains(mMeeting));
+    }
+
+    /**
+     * Assert we cannot add a Meeting if the Interval overlaps in same Meeting Room
+     */
+    @Test
+    public void doNotAddMeetingIfOverlaps() {
+        // First Meeting
+        this.configureAMeeting();
+        // Second Meeting with same Interval
+        DateTime dtBegin = mMeeting.getDateBegin();
+        DateTime dtEnd = mMeeting.getDateEnd();
+        Meeting meetingWithSameInterval = new Meeting(
+                dtBegin,
+                dtEnd,
+                mMeeting.getPlace(),
+                "Meeting Test",
+                Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
+
+        mMeetingApiService.addMeeting(mMeeting);
+        assertFalse(mMeetingApiService.getMeetings().contains(meetingWithSameInterval));
+    }
+
+    /**
+     * Assert we can add a Meeting in same Meeting Room if he do not overlaps
+     */
+    @Test
+    public void canWeAddMeetingInSameMeetingRoomsIfDoNotOverlaps() {
+        // First Meeting
+        this.configureAMeeting();
+        // Second Meeting
+        DateTime dtBegin = mMeeting.getDateEnd().plusMinutes(15);
+        DateTime dtEnd = dtBegin.plusMinutes(45);
+
+        Meeting secondMeeting = new Meeting(
+                dtBegin,
+                dtEnd,
+                mMeeting.getPlace(),
+                "Meeting Test",
+                Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
+
+        mMeetingApiService.addMeeting(mMeeting);
+        mMeetingApiService.addMeeting(secondMeeting);
+        assertTrue(mMeetingApiService.getMeetings().contains(secondMeeting));
     }
 
     /**
@@ -88,7 +155,8 @@ public class MeetingTests {
     private void configureAMeeting() {
         DateTime beginningDate = new DateTime();
         DateTime endDate = beginningDate.plusMinutes(30);
-        mMeetingRoom = mMeetingApiService.getMeetingRooms().get(0);
+        int randomMeetingRoomID = (int)(Math.random() * mMeetingApiService.getMeetingRooms().size());
+        mMeetingRoom = mMeetingApiService.getMeetingRooms().get(randomMeetingRoomID);
 
         mMeeting = new Meeting(beginningDate, endDate, mMeetingRoom, "Event Storming", Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
     }

@@ -52,7 +52,7 @@ public class Meeting {
     public Meeting(DateTime pDateBegin, DateTime pDateEnd, MeetingRoom pPlace, String pSubject, List<Collaborator> pParticipantsList) {
         this.dateBegin = pDateBegin;
         this.dateEnd = pDateEnd;
-        interval = new Interval(pDateBegin, pDateEnd);
+        this.interval = new Interval(dateBegin, dateEnd);
         this.place = pPlace;
         this.subject = pSubject;
         this.participantsList = pParticipantsList;
@@ -63,7 +63,7 @@ public class Meeting {
     ///
 
     /**
-     * Get the beginning {@link Date} of the Meeting.
+     * Get the beginning {@link DateTime} of the Meeting.
      * @return the Date where the Meeting begin
      */
     public DateTime getDateBegin() {
@@ -71,7 +71,7 @@ public class Meeting {
     }
 
     /**
-     * Get the end {@link Date} of the Meeting.
+     * Get the end {@link DateTime} of the Meeting.
      * @return the Date where the Meeting ending
      */
     public DateTime getDateEnd() {

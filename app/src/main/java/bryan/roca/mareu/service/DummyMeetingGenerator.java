@@ -15,7 +15,7 @@ import bryan.roca.mareu.models.MeetingRoom;
  */
 public class DummyMeetingGenerator {
 
-    public static List<Meeting> DUMMY_MEETINGS = Collections.emptyList();
+    public static List<Meeting> DUMMY_MEETINGS = new ArrayList<>();
     public static List<MeetingRoom> DUMMY_MEETINGROOMS = Arrays.asList(
             new MeetingRoom("Dune du Pilat"),
             new MeetingRoom("L'Ile aux oiseaux"),
