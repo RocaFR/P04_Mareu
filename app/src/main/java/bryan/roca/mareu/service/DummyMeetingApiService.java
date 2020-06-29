@@ -20,9 +20,7 @@ public class DummyMeetingApiService implements MeetingApiService {
     private List<MeetingRoom> mMeetingRoomsList = DummyMeetingGenerator.generateMeetingRooms();
 
     @Override
-    public List<Meeting> getMeetings() {
-        return mMeetingList;
-    }
+    public List<Meeting> getMeetings() { return mMeetingList; }
 
     @Override
     public List<Meeting> getMeetings(MeetingRoom pMeetingRoom) {
@@ -43,19 +41,10 @@ public class DummyMeetingApiService implements MeetingApiService {
         List<Meeting> mMeetingListByMeetingRoom = getMeetings(pMeeting.getPlace());
         boolean isOverlap = false;
 
-        // Create the Interval for pMeeting
-        DateTime dateBegin = new DateTime(pMeeting.getDateBegin());
-        DateTime dateEnd = new DateTime(pMeeting.getDateEnd());
-        Interval interval = new Interval(dateBegin, dateEnd);
-
-        // Check if the Interval above exist in mMeetingListByMeetingRoom
+        // Check if the Interval exist in mMeetingListByMeetingRoom
         if (mMeetingListByMeetingRoom.size() > 0) {
             for (Meeting meeting : mMeetingListByMeetingRoom) {
-                DateTime dtBegin = new DateTime(meeting.getDateBegin());
-                DateTime dtEnd = new DateTime(meeting.getDateEnd());
-                Interval intervalTmp = new Interval(dtBegin, dtEnd);
-
-                if (interval.overlaps(intervalTmp)) {
+                if (pMeeting.getInterval().overlaps(meeting.getInterval())) {
                     isOverlap = true;
                     break;
                 }
