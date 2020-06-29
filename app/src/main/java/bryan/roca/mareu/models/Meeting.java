@@ -88,7 +88,7 @@ public class Meeting {
 
     /**
      * Get the place ({@link MeetingRoom}) where she will take place.
-     * @return
+     * @return the Place
      */
     public MeetingRoom getPlace() {
         return place;
@@ -104,7 +104,7 @@ public class Meeting {
 
     /**
      * Get the participants ({@link Collaborator}) list of the Meeting.
-     * @return
+     * @return the list
      */
     public List<Collaborator> getParticipantsList() {
         return participantsList;
@@ -116,7 +116,7 @@ public class Meeting {
 
     /**
      * Set the beginning {@link Date} of the Meeting.
-     * @param pDateBegin
+     * @param pDateBegin the beginning DateTime
      */
     public void setDateBegin(DateTime pDateBegin) {
         dateBegin = pDateBegin;
@@ -124,7 +124,7 @@ public class Meeting {
 
     /**
      * Set the ending {@link Date} of the Meeting.
-     * @param pDateEnd
+     * @param pDateEnd the end DateTime
      */
     public void setDateEnd(DateTime pDateEnd) {
         dateEnd = pDateEnd;
@@ -140,7 +140,7 @@ public class Meeting {
 
     /**
      * Set the place ({@link MeetingRoom}) where she will take place.
-     * @param pPlace
+     * @param pPlace the {@link MeetingRoom}
      */
     public void setPlace(MeetingRoom pPlace) {
         place = pPlace;
@@ -148,7 +148,7 @@ public class Meeting {
 
     /**
      * Set the subject about the Meeting.
-     * @param pSubject
+     * @param pSubject the short subject
      */
     public void setSubject(String pSubject) {
         subject = pSubject;
@@ -156,7 +156,7 @@ public class Meeting {
 
     /**
      * Set the participants ({@link Collaborator}) list of the Meeting.
-     * @param pParticipantsList
+     * @param pParticipantsList the list of participants
      */
     public void setParticipantsList(List<Collaborator> pParticipantsList) {
         participantsList = pParticipantsList;

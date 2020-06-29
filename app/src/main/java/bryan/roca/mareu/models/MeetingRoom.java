@@ -61,7 +61,7 @@ public class MeetingRoom {
 
     /**
      * Set the maximum capacity for this Meeting Room.
-     * @param pMaxNumberCapacity
+     * @param pMaxNumberCapacity Maximum number capacity
      */
     public void setMaxNumberCapacity(int pMaxNumberCapacity) {
         if (pMaxNumberCapacity < 2) {

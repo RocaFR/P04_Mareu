@@ -20,7 +20,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     private OnDateChangeListener mCallBack;
 
     public interface OnDateChangeListener {
-        public void onDateChange(DatePicker pDatePicker, int pI, int pI1, int pI2);
+        void onDateChange(DatePicker pDatePicker, int pI, int pI1, int pI2);
     }
 
     @NonNull

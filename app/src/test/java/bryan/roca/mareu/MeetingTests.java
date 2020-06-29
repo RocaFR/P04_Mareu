@@ -28,9 +28,7 @@ public class MeetingTests {
     private MeetingApiService mMeetingApiService;
 
     @Before
-    public void setup() {
-        mMeetingApiService = DI.getNewInstanceMeetingApiService();
-    }
+    public void setup() { mMeetingApiService = DI.getNewInstanceMeetingApiService(); }
 
     /**
      * Assert we can create a new Meeting Room
@@ -84,6 +82,9 @@ public class MeetingTests {
         assertFalse(mMeetingList.contains(mMeeting));
     }
 
+    /**
+     * Initialize a Meeting for tests
+     */
     private void configureAMeeting() {
         DateTime beginningDate = new DateTime();
         DateTime endDate = beginningDate.plusMinutes(30);
