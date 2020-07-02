@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Mareu</string>
+    <string name="icon_for_meeting_name">Icon for Meeting name</string>
+    <string name="icon_for_meeting_room">Icon for Meeting Room</string>
+    <string name="icon_for_the_number_of_participants">Icon for the Number of Participants</string>
+    <string name="icon_button_for_remove_meeting">Icon button for remove Meeting</string>
 </resources>

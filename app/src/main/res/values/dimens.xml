@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_margin">6dp</dimen>
+    <dimen name="size_meetingName">18sp</dimen>
+    <dimen name="size_meetingRoom">16sp</dimen>
+</resources>

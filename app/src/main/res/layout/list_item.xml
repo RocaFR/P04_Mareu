@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/item_margin">
+
+    <ImageView
+        android:id="@+id/imageView_iconName"
+        android:contentDescription="@string/icon_for_meeting_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_margin"
+        android:src="@drawable/baseline_assignment_black_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_meetingName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_margin"
+        android:text="Event Storming"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_meetingName"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_iconName"
+        app:layout_constraintStart_toEndOf="@+id/imageView_iconName"
+        app:layout_constraintTop_toTopOf="@+id/imageView_iconName"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView_meetingRoom"
+        android:contentDescription="@string/icon_for_meeting_room"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_margin"
+        android:src="@drawable/baseline_meeting_room_black_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_iconName" />
+
+    <TextView
+        android:id="@+id/textView_meetingRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_margin"
+        android:text="Dune du Pilat"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_meetingRoom"
+        app:layout_constraintBottom_toBottomOf="@id/imageView_meetingRoom"
+        app:layout_constraintStart_toEndOf="@id/imageView_meetingRoom"
+        app:layout_constraintTop_toTopOf="@id/imageView_meetingRoom"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView_numberOfParticipants"
+        android:contentDescription="@string/icon_for_the_number_of_participants"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/item_margin"
+        android:src="@drawable/baseline_group_black_24"
+        app:layout_constraintBottom_toBottomOf="@id/textView_meetingRoom"
+        app:layout_constraintStart_toEndOf="@id/textView_meetingRoom"
+        app:layout_constraintTop_toTopOf="@id/textView_meetingRoom"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_numberOfParticipants"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_meetingRoom"
+        app:layout_constraintBottom_toBottomOf="@id/imageView_numberOfParticipants"
+        app:layout_constraintStart_toEndOf="@id/imageView_numberOfParticipants"
+        app:layout_constraintTop_toTopOf="@id/imageView_numberOfParticipants"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_dateBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/item_margin"
+        android:text="18/02/2020"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_meetingRoom"
+        app:layout_constraintBottom_toBottomOf="@id/textView_meetingName"
+        app:layout_constraintEnd_toStartOf="@id/textView_timeBegin"
+        app:layout_constraintTop_toTopOf="@id/textView_meetingName"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_timeBegin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11:00"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_meetingRoom"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/textView_meetingName"
+        app:layout_constraintEnd_toStartOf="@id/imageButton_removeMeeting"
+        android:layout_marginEnd="@dimen/item_margin"
+        app:layout_constraintTop_toTopOf="@id/textView_meetingName"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_dateEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="18/02/2020"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_meetingRoom"
+        app:layout_constraintEnd_toStartOf="@id/textView_timeEnd"
+        android:layout_marginEnd="@dimen/item_margin"
+        app:layout_constraintTop_toTopOf="@id/textView_meetingRoom"
+        app:layout_constraintBottom_toBottomOf="@id/textView_meetingRoom" />
+
+    <TextView
+        android:id="@+id/textView_timeEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12:00"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/size_meetingRoom"
+        app:layout_constraintEnd_toStartOf="@id/imageButton_removeMeeting"
+        android:layout_marginEnd="@dimen/item_margin"
+        app:layout_constraintTop_toTopOf="@id/textView_dateEnd"
+        app:layout_constraintBottom_toBottomOf="@id/textView_dateEnd" />
+
+    <ImageButton
+        android:id="@+id/imageButton_removeMeeting"
+        android:contentDescription="@string/icon_button_for_remove_meeting"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_delete_black_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

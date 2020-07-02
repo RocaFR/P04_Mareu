@@ -1,10 +1,13 @@
 package bryan.roca.mareu.service;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;
 
@@ -16,6 +19,7 @@ import bryan.roca.mareu.models.MeetingRoom;
 public class DummyMeetingGenerator {
 
     public static List<Meeting> DUMMY_MEETINGS = new ArrayList<>();
+
     public static List<MeetingRoom> DUMMY_MEETINGROOMS = Arrays.asList(
             new MeetingRoom("Dune du Pilat"),
             new MeetingRoom("L'Ile aux oiseaux"),
