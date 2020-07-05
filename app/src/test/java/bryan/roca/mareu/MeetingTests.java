@@ -111,7 +111,7 @@ public class MeetingTests {
                 Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
 
         mMeetingApiService.addMeeting(mMeeting);
-        assertFalse(mMeetingApiService.getMeetings().contains(meetingWithSameInterval));
+        assertFalse(mMeetingApiService.addMeeting(meetingWithSameInterval));
     }
 
     /**
@@ -132,9 +132,8 @@ public class MeetingTests {
                 "Meeting Test",
                 Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
 
-        mMeetingApiService.addMeeting(mMeeting);
-        mMeetingApiService.addMeeting(secondMeeting);
-        assertTrue(mMeetingApiService.getMeetings().contains(secondMeeting));
+        assertTrue(mMeetingApiService.addMeeting(mMeeting));
+        assertTrue(mMeetingApiService.addMeeting(secondMeeting));
     }
 
     /**
