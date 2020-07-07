@@ -14,11 +14,10 @@ import bryan.roca.mareu.models.Meeting;
 
 /**
  * Mareu - bryan.roca.mareu.views
- * 02/07/20
+ * 07/07/20
  * Author Bryan Ferreras-Roca
  */
 public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
-
     private List<Meeting> mMeetingList;
 
     public MeetingAdapter(List<Meeting> pMeetingList) {
@@ -38,11 +37,11 @@ public class MeetingAdapter extends RecyclerView.Adapter<MeetingViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MeetingViewHolder pMeetingViewHolder, int pI) {
-
+        pMeetingViewHolder.updateUI(mMeetingList.get(pI));
     }
 
     @Override
     public int getItemCount() {
-        return this.mMeetingList.size();
+        return mMeetingList.size();
     }
 }
