@@ -1,10 +1,13 @@
 package bryan.roca.mareu.controllers.activities;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -19,11 +22,13 @@ import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.service.DummyMeetingApiService;
 import bryan.roca.mareu.service.MeetingApiService;
+import bryan.roca.mareu.utils.ItemClickSupport;
 import bryan.roca.mareu.views.MeetingAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private FloatingActionButton mFloatingActionButtonAddActivity;
     private MeetingApiService mMeetingApiService;
     private RecyclerView mRecyclerView;
     private List<Meeting> mMeetingList;
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Views
         mRecyclerView = findViewById(R.id.recyclerView);
+        mFloatingActionButtonAddActivity = findViewById(R.id.floatingButton_addMeeting);
 
         // Data
         List<Collaborator> collaboratorList = Arrays.asList(new Collaborator("bryan.ferreras@gmail.Com"), new Collaborator("solene.moussion@gmail.com"));
@@ -46,6 +52,19 @@ public class MainActivity extends AppCompatActivity {
         mMeetingApiService.addMeeting(meeting2);
 
         this.configureRecyclerView();
+        this.configureOnClickItem();
+
+        mFloatingActionButtonAddActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View pView) {
+                Intent intent = new Intent(getBaseContext(), AddMeetingActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void configureOnClickItem() {
+        // TODO launch Detail Meeting Activity
     }
 
     @Override
@@ -71,6 +90,8 @@ public class MainActivity extends AppCompatActivity {
         mMeetingAdapter = new MeetingAdapter(mMeetingList);
         mRecyclerView.setAdapter(mMeetingAdapter);
     }
+
+
 
     /**
      * Fired when the user tap the Image Remove Button

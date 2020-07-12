@@ -1,16 +1,21 @@
 package bryan.roca.mareu.views;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import bryan.roca.mareu.R;
+import bryan.roca.mareu.controllers.activities.AddMeetingActivity;
 import bryan.roca.mareu.event.DeleteMeetingEvent;
 import bryan.roca.mareu.models.Meeting;
 
@@ -31,8 +36,7 @@ class MeetingViewHolder extends RecyclerView.ViewHolder {
     private TextView mTextViewNumberOfParticipants;
     public ImageButton mImageButtonRemoveMeeting;
 
-
-    public MeetingViewHolder(@NonNull View itemView) {
+    public MeetingViewHolder(@NonNull final View itemView) {
         super(itemView);
 
         // Views declarations
