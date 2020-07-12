@@ -5,6 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
 import bryan.roca.mareu.R;
 import bryan.roca.mareu.models.Meeting;
 
@@ -39,12 +42,21 @@ class MeetingViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void updateUI(Meeting pMeeting) {
+        // Date Formatter
+        DateTimeFormatter fmt = DateTimeFormat.forPattern("dd/MM/yyyy");
+        String dateBegin = fmt.print(pMeeting.getDateBegin());
+        String dateEnd = fmt.print(pMeeting.getDateEnd());
+        // Time Formatter
+        fmt = DateTimeFormat.forPattern("HH:mm");
+        String timeBegin = fmt.print(pMeeting.getDateBegin());
+        String timeEnd = fmt.print(pMeeting.getDateEnd());
+
         mTextViewMeetingName.setText(pMeeting.getSubject());
         mTextViewMeetingRoom.setText(pMeeting.getPlace().getName());
-        //mTextViewDateBegin.setText(pMeeting.getDateBegin().toString());
-        //mTextViewDateEnd.setText(pMeeting.getDateEnd().toString());
-        mTextViewTimeBegin.setText(Integer.toString(pMeeting.getDateBegin().getHourOfDay()));
-        mTextViewTimeEnd.setText(Integer.toString(pMeeting.getDateEnd().getHourOfDay()));
+        mTextViewDateBegin.setText(dateBegin);
+        mTextViewDateEnd.setText(dateEnd);
+        mTextViewTimeBegin.setText(timeBegin);
+        mTextViewTimeEnd.setText(timeEnd);
         mTextViewNumberOfParticipants.setText(Integer.toString(pMeeting.getParticipantsList().size()));
     }
 }

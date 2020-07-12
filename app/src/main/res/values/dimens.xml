@@ -2,5 +2,5 @@
 <resources>
     <dimen name="item_margin">6dp</dimen>
     <dimen name="size_meetingName">18sp</dimen>
-    <dimen name="size_meetingRoom">16sp</dimen>
+    <dimen name="size_meetingRoom">12sp</dimen>
 </resources>
