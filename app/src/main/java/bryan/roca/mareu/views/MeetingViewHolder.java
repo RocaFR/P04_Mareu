@@ -3,12 +3,15 @@ package bryan.roca.mareu.views;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import bryan.roca.mareu.R;
+import bryan.roca.mareu.event.DeleteMeetingEvent;
 import bryan.roca.mareu.models.Meeting;
 
 /**
@@ -26,6 +29,7 @@ class MeetingViewHolder extends RecyclerView.ViewHolder {
     private TextView mTextViewTimeBegin;
     private TextView mTextViewTimeEnd;
     private TextView mTextViewNumberOfParticipants;
+    public ImageButton mImageButtonRemoveMeeting;
 
 
     public MeetingViewHolder(@NonNull View itemView) {
@@ -39,6 +43,7 @@ class MeetingViewHolder extends RecyclerView.ViewHolder {
         mTextViewTimeBegin =  itemView.findViewById(R.id.textView_timeBegin);
         mTextViewTimeEnd =  itemView.findViewById(R.id.textView_timeEnd);
         mTextViewNumberOfParticipants = itemView.findViewById(R.id.textView_numberOfParticipants);
+        mImageButtonRemoveMeeting = itemView.findViewById(R.id.imageButton_removeMeeting);
     }
 
     public void updateUI(Meeting pMeeting) {
@@ -57,6 +62,6 @@ class MeetingViewHolder extends RecyclerView.ViewHolder {
         mTextViewDateEnd.setText(dateEnd);
         mTextViewTimeBegin.setText(timeBegin);
         mTextViewTimeEnd.setText(timeEnd);
-        mTextViewNumberOfParticipants.setText(Integer.toString(pMeeting.getParticipantsList().size()));
+        mTextViewNumberOfParticipants.setText(String.format("%x", pMeeting.getParticipantsList().size()));
     }
 }
