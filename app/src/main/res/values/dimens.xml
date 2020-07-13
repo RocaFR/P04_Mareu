@@ -3,4 +3,7 @@
     <dimen name="item_margin">6dp</dimen>
     <dimen name="size_meetingName">18sp</dimen>
     <dimen name="size_meetingRoom">12sp</dimen>
+    <dimen name="margin_perimeter">40dp</dimen>
+    <dimen name="margintop_edittext">20dp</dimen>
+    <dimen name="marginbottom_rootview">50dp</dimen>
 </resources>

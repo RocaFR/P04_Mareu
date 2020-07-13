@@ -1,4 +1,4 @@
-package bryan.roca.mareu.di;
+package bryan.roca.mareu.ui.di;
 
 import bryan.roca.mareu.service.DummyMeetingApiService;
 import bryan.roca.mareu.service.MeetingApiService;

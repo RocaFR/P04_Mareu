@@ -120,7 +120,7 @@
         app:layout_constraintVertical_bias="1.0"
         tools:text="18/02/2020" />
 
-    <TextView
+      <TextView
         android:id="@+id/textView_timeEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

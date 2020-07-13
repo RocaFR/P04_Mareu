@@ -5,12 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-import bryan.roca.mareu.di.DI;
+import bryan.roca.mareu.ui.di.DI;
 import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;

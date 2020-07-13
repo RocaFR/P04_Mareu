@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="backgroundItem">#e5e5e5 </color>
+    <color name="buttonAddMeetingTrue">@android:color/black</color>
+    <color name="buttonAddMeetingFalse">#E0E0E0</color>
 </resources>

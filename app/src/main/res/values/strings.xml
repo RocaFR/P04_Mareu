@@ -4,4 +4,8 @@
     <string name="icon_for_meeting_room">Icon for Meeting Room</string>
     <string name="icon_for_the_number_of_participants">Icon for the Number of Participants</string>
     <string name="icon_button_for_remove_meeting">Icon button for remove Meeting</string>
+    <string name="new_meeting">Please fill all fields</string>
+    <string name="meeting_s_name">Meeting\'s name</string>
+    <string name="icon_for_add_a_participant">Icon for add a Participant</string>
+    <string name="begin_at">Begin at</string>
 </resources>

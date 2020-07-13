@@ -10,7 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controllers.activities.AddMeetingActivity"></activity>
+        <activity
+            android:name=".controllers.activities.AddMeetingActivity"
+            android:parentActivityName=".controllers.activities.MainActivity"
+            android:label="New Meeting"/>
         <activity android:name=".controllers.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
