@@ -5,8 +5,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -144,11 +146,23 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     private void configureAlertDialogAddParticipant() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(R.layout.fragment_add_a_participant);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.fragment_add_a_participant, null);
+        builder.setView(view);
+        final EditText mEditText = view.findViewById(R.id.fragment_add_participant_editText_mail_address);
         builder.setPositiveButton(R.string.alert_dialog_positive_button, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface pDialogInterface, int pI) {
-                Toast.makeText(AddMeetingActivity.this, "Participant added", Toast.LENGTH_SHORT).show();
+                if (mEditText.length() > 1) {
+                    String str = mTextViewTheParticipantsList.getText().toString();
+
+                    if (TextUtils.isEmpty(str)) {
+                        mTextViewTheParticipantsList.setText(mEditText.getText());
+                    } else {
+                        mTextViewTheParticipantsList.setText(str +", " + mEditText.getText());
+                    }
+                    Toast.makeText(AddMeetingActivity.this, "Participant added", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         builder.setNegativeButton(R.string.alert_dialog_negative_button, new DialogInterface.OnClickListener() {
