@@ -1,5 +1,7 @@
 package bryan.roca.mareu.controllers.activities;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,10 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import bryan.roca.mareu.R;
+import bryan.roca.mareu.controllers.fragments.AddAParticipantFragmentDialog;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;
 import bryan.roca.mareu.service.DummyMeetingApiService;
@@ -59,6 +63,16 @@ public class AddMeetingActivity extends AppCompatActivity {
         this.configureMeetingRoomSpinner();
 
         this.configureImageButtonAddMeeting();
+        this.configureImageButtonAddAParticipant();
+    }
+
+    private void configureImageButtonAddAParticipant() {
+        mImageButtonAddParticipant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View pView) {
+                configureAlertDialogAddParticipant();
+            }
+        });
     }
 
     /**
@@ -126,5 +140,24 @@ public class AddMeetingActivity extends AppCompatActivity {
         List<MeetingRoom> meetingList = mMeetingApiService.getMeetingRooms();
         ArrayAdapter<MeetingRoom> meetingRoomArrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, meetingList);
         mSpinner.setAdapter(meetingRoomArrayAdapter);
+    }
+
+    private void configureAlertDialogAddParticipant() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(R.layout.fragment_add_a_participant);
+        builder.setPositiveButton(R.string.alert_dialog_positive_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface pDialogInterface, int pI) {
+                Toast.makeText(AddMeetingActivity.this, "Participant added", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton(R.string.alert_dialog_negative_button, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface pDialogInterface, int pI) {
+                Toast.makeText(AddMeetingActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

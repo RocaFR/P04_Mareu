@@ -1,184 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
+    android:id="@+id/addMeeting_activity_scrollView"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
     <android.support.constraint.ConstraintLayout
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/rootView_addMeeting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".controllers.activities.AddMeetingActivity"
-        android:layout_margin="@dimen/margin_perimeter"
-        android:paddingBottom="@dimen/marginbottom_rootview">
+        android:paddingBottom="@dimen/margin_perimeter"
+        tools:context=".controllers.activities.AddMeetingActivity">
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_newMeeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/margin_perimeter"
             android:text="@string/new_meeting"
+            android:textColor="@android:color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/editText_addMeeting_activity_meetingName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_edittext"
+            android:layout_marginStart="@dimen/margin_perimeter"
             android:layout_marginTop="@dimen/margin_perimeter"
+            android:layout_marginEnd="@dimen/margin_perimeter"
+            android:background="@drawable/bg_edittext"
             android:hint="@string/meeting_s_name"
-            android:textSize="@dimen/size_meetingName"
             android:textColor="@android:color/black"
             android:textColorHint="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_newMeeting"/>
+            android:textSize="@dimen/size_meetingName"
+            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_newMeeting" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_beginAt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/begin_at"
+            android:layout_marginStart="@dimen/margin_perimeter"
             android:layout_marginTop="@dimen/margintop_edittext"
-            android:textSize="@dimen/size_meetingName"
+            android:layout_marginEnd="@dimen/margin_perimeter"
+            android:text="@string/begin_at"
             android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@id/editText_addMeeting_activity_meetingName"
-            app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"/>
+            android:textSize="@dimen/size_meetingName"
+            app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"
+            app:layout_constraintTop_toBottomOf="@id/editText_addMeeting_activity_meetingName" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_dateBegin"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.45"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_edittext"
-            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_beginAt"
-            app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"
             android:layout_marginTop="5dp"
+            android:background="@drawable/bg_edittext"
             android:hint="01/01/2020"
             android:textAlignment="center"
+            android:textColorHint="@android:color/black"
             android:textSize="@dimen/size_meetingName"
-            android:textColorHint="@android:color/black"/>
+            app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"
+            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_beginAt"
+            app:layout_constraintWidth_percent="0.37" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_timeBegin"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.45"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittext"
-            app:layout_constraintEnd_toEndOf="@id/editText_addMeeting_activity_meetingName"
-            app:layout_constraintTop_toTopOf="@id/textView_addMeeting_activity_dateBegin"
-            app:layout_constraintBottom_toBottomOf="@id/textView_addMeeting_activity_dateBegin"
             android:hint="11:00"
             android:textAlignment="center"
+            android:textColorHint="@android:color/black"
             android:textSize="@dimen/size_meetingName"
-            android:textColorHint="@android:color/black"/>
+            app:layout_constraintBottom_toBottomOf="@id/textView_addMeeting_activity_dateBegin"
+            app:layout_constraintEnd_toEndOf="@id/editText_addMeeting_activity_meetingName"
+            app:layout_constraintTop_toTopOf="@id/textView_addMeeting_activity_dateBegin"
+            app:layout_constraintWidth_percent="0.37" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_EndAt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="End at"
+            android:layout_marginStart="@dimen/margin_perimeter"
             android:layout_marginTop="@dimen/margintop_edittext"
-            android:textSize="@dimen/size_meetingName"
+            android:layout_marginEnd="@dimen/margin_perimeter"
+            android:text="End at"
             android:textColor="@android:color/black"
-            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_dateBegin"
-            app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"/>
+            android:textSize="@dimen/size_meetingName"
+            app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"
+            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_dateBegin" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_dateEnd"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.45"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_edittext"
-            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_EndAt"
-            app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"
             android:layout_marginTop="5dp"
+            android:background="@drawable/bg_edittext"
             android:hint="01/01/2020"
             android:textAlignment="center"
+            android:textColorHint="@android:color/black"
             android:textSize="@dimen/size_meetingName"
-            android:textColorHint="@android:color/black"/>
+            app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"
+            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_EndAt"
+            app:layout_constraintWidth_percent="0.37" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_timeEnd"
             android:layout_width="0dp"
-            app:layout_constraintWidth_percent="0.45"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittext"
-            app:layout_constraintEnd_toEndOf="@id/editText_addMeeting_activity_meetingName"
-            app:layout_constraintTop_toTopOf="@id/textView_addMeeting_activity_dateEnd"
-            app:layout_constraintBottom_toBottomOf="@id/textView_addMeeting_activity_dateEnd"
             android:hint="12:00"
             android:textAlignment="center"
+            android:textColorHint="@android:color/black"
             android:textSize="@dimen/size_meetingName"
-            android:textColorHint="@android:color/black"/>
+            app:layout_constraintBottom_toBottomOf="@id/textView_addMeeting_activity_dateEnd"
+            app:layout_constraintEnd_toEndOf="@id/editText_addMeeting_activity_meetingName"
+            app:layout_constraintTop_toTopOf="@id/textView_addMeeting_activity_dateEnd"
+            app:layout_constraintWidth_percent="0.37" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_meetingRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_perimeter"
+            android:layout_marginTop="@dimen/margintop_edittext"
+            android:layout_marginEnd="@dimen/margin_perimeter"
             android:text="Meeting Room"
-            android:textSize="@dimen/size_meetingName"
             android:textColor="@android:color/black"
+            android:textSize="@dimen/size_meetingName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_dateEnd"
-            android:layout_marginTop="@dimen/margintop_edittext"/>
+            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_dateEnd" />
 
         <Spinner
-            android:background="@drawable/bg_edittext"
             android:id="@+id/spinner_addMeeting_activity_meetingRoom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_meetingRoom"
-            android:layout_marginTop="5dp" />
+            android:layout_marginStart="@dimen/margin_perimeter"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="@dimen/margin_perimeter"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_meetingRoom" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_listOfParticipants"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_perimeter"
             android:layout_marginTop="@dimen/margintop_edittext"
+            android:layout_marginEnd="@dimen/margin_perimeter"
             android:text="List of Participants"
-            android:textSize="@dimen/size_meetingName"
             android:textColor="@android:color/black"
+            android:textSize="@dimen/size_meetingName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_addMeeting_activity_meetingRoom"/>
+            app:layout_constraintTop_toBottomOf="@id/spinner_addMeeting_activity_meetingRoom" />
 
         <ImageButton
             android:id="@+id/imageButton_addMeeting_activity_addParticipant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_person_add_black_24"
-            android:background="@null"
-            app:layout_constraintStart_toEndOf="@id/textView_addMeeting_activity_listOfParticipants"
-            app:layout_constraintTop_toTopOf="@id/textView_addMeeting_activity_listOfParticipants"
-            app:layout_constraintBottom_toBottomOf="@id/textView_addMeeting_activity_listOfParticipants"
             android:layout_marginStart="@dimen/item_margin"
-            android:contentDescription="@string/icon_for_add_a_participant" />
+            android:background="@null"
+            android:contentDescription="@string/icon_for_add_a_participant"
+            android:src="@drawable/baseline_person_add_black_24"
+            app:layout_constraintBottom_toBottomOf="@id/textView_addMeeting_activity_listOfParticipants"
+            app:layout_constraintStart_toEndOf="@id/textView_addMeeting_activity_listOfParticipants"
+            app:layout_constraintTop_toTopOf="@id/textView_addMeeting_activity_listOfParticipants" />
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_theListOfParticipants"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_edittext"
-            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_listOfParticipants"
+            android:layout_marginStart="@dimen/margin_perimeter"
             android:layout_marginTop="5dp"
-            android:textSize="@dimen/size_meetingName"
+            android:layout_marginEnd="@dimen/margin_perimeter"
+            android:background="@drawable/bg_edittext"
+            android:hint="No participant"
             android:textColor="@android:color/black"
-            android:hint="No participant"/>
+            android:textSize="@dimen/size_meetingName"
+            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_listOfParticipants" />
 
         <ImageButton
             android:id="@+id/imageButton_addMeeting_activity_addMeeting"
-            android:background="@drawable/bg_circle_add_meeting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_perimeter"
+            android:background="@drawable/bg_circle_add_meeting"
             android:src="@drawable/baseline_playlist_add_white_36"
-            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_theListOfParticipants"
-            app:layout_constraintStart_toStartOf="@id/textView_addMeeting_activity_theListOfParticipants"
             app:layout_constraintEnd_toEndOf="@id/textView_addMeeting_activity_theListOfParticipants"
-            android:layout_marginTop="@dimen/margin_perimeter" />
+            app:layout_constraintStart_toStartOf="@id/textView_addMeeting_activity_theListOfParticipants"
+            app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_theListOfParticipants" />
+
 
     </android.support.constraint.ConstraintLayout>
 

@@ -8,4 +8,6 @@
     <string name="meeting_s_name">Meeting\'s name</string>
     <string name="icon_for_add_a_participant">Icon for add a Participant</string>
     <string name="begin_at">Begin at</string>
+    <string name="alert_dialog_positive_button">Add</string>
+    <string name="alert_dialog_negative_button">Cancel</string>
 </resources>
