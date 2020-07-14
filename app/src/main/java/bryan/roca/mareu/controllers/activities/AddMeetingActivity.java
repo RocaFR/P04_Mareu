@@ -2,6 +2,9 @@ package bryan.roca.mareu.controllers.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -54,8 +57,71 @@ public class AddMeetingActivity extends AppCompatActivity {
         mImageButtonAddMeeting.setEnabled(false);
         mSpinner = findViewById(R.id.spinner_addMeeting_activity_meetingRoom);
         this.configureMeetingRoomSpinner();
+
+        this.configureImageButtonAddMeeting();
     }
 
+    /**
+     * Configure the ImageButton state
+     */
+    private void configureImageButtonAddMeeting() {
+        mEditTextMeetingsName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence pCharSequence, int pI, int pI1, int pI2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence pCharSequence, int pI, int pI1, int pI2) {
+                if (checkAllFields()) {
+                    mImageButtonAddMeeting.setEnabled(true);
+                    mImageButtonAddMeeting.getDrawable().mutate().setTint(getResources().getColor(R.color.buttonAddMeetingTrue));
+                } else {
+                    mImageButtonAddMeeting.setEnabled(false);
+                    mImageButtonAddMeeting.getDrawable().mutate().setTint(getResources().getColor(R.color.buttonAddMeetingFalse));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable pEditable) {
+
+            }
+        });
+        mTextViewTheParticipantsList.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence pCharSequence, int pI, int pI1, int pI2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence pCharSequence, int pI, int pI1, int pI2) {
+                if (checkAllFields()) {
+                    mImageButtonAddMeeting.setEnabled(true);
+                    mImageButtonAddMeeting.getDrawable().mutate().setTint(getResources().getColor(R.color.buttonAddMeetingTrue));
+                } else {
+                    mImageButtonAddMeeting.setEnabled(false);
+                    mImageButtonAddMeeting.getDrawable().mutate().setTint(getResources().getColor(R.color.buttonAddMeetingFalse));
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable pEditable) {
+
+            }
+        });
+    }
+
+    /**
+     * Util for configureImageButtonAddMeeting()
+     * @return
+     */
+    private Boolean checkAllFields() {
+        return mEditTextMeetingsName.length() > 0 && mTextViewTheParticipantsList.length() > 0;
+    }
+
+    /**
+     * Configure the Meeting Rooms's Spinner
+     */
     private void configureMeetingRoomSpinner() {
         List<MeetingRoom> meetingList = mMeetingApiService.getMeetingRooms();
         ArrayAdapter<MeetingRoom> meetingRoomArrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, meetingList);
