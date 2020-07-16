@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,9 +15,12 @@ import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.util.List;
+
 import bryan.roca.mareu.R;
 import bryan.roca.mareu.controllers.activities.AddMeetingActivity;
 import bryan.roca.mareu.event.DeleteMeetingEvent;
+import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
 
 /**
@@ -35,6 +39,7 @@ class MeetingViewHolder extends RecyclerView.ViewHolder {
     private TextView mTextViewTimeEnd;
     private TextView mTextViewNumberOfParticipants;
     public ImageButton mImageButtonRemoveMeeting;
+    private TextView mTextViewTheListOfParticipants;
 
     public MeetingViewHolder(@NonNull final View itemView) {
         super(itemView);
@@ -48,6 +53,7 @@ class MeetingViewHolder extends RecyclerView.ViewHolder {
         mTextViewTimeEnd =  itemView.findViewById(R.id.textView_timeEnd);
         mTextViewNumberOfParticipants = itemView.findViewById(R.id.textView_numberOfParticipants);
         mImageButtonRemoveMeeting = itemView.findViewById(R.id.imageButton_removeMeeting);
+        mTextViewTheListOfParticipants = itemView.findViewById(R.id.imageView_list_item_theListOfParticipants);
     }
 
     public void updateUI(Meeting pMeeting) {
@@ -67,5 +73,14 @@ class MeetingViewHolder extends RecyclerView.ViewHolder {
         mTextViewTimeBegin.setText(timeBegin);
         mTextViewTimeEnd.setText(timeEnd);
         mTextViewNumberOfParticipants.setText(String.format("%x", pMeeting.getParticipantsList().size()));
+
+        for (Collaborator collaborator : pMeeting.getParticipantsList()) {
+            if (TextUtils.isEmpty(mTextViewTheListOfParticipants.getText())) {
+                mTextViewTheListOfParticipants.setText(collaborator.getId());
+            } else {
+                String str = mTextViewTheListOfParticipants.getText().toString();
+                mTextViewTheListOfParticipants.setText(str + ", " + collaborator.getId());
+            }
+        }
     }
 }

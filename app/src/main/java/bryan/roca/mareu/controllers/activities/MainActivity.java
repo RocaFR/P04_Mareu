@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mFloatingActionButtonAddActivity = findViewById(R.id.floatingButton_addMeeting);
 
         // Data
-        List<Collaborator> collaboratorList = Arrays.asList(new Collaborator("bryan.ferreras@gmail.Com"), new Collaborator("solene.moussion@gmail.com"));
+        List<Collaborator> collaboratorList = Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("solene.moussion@gmail.com"));
         mMeetingApiService = new DummyMeetingApiService();
         Meeting meeting = new Meeting(DateTime.now(), DateTime.now().plusMinutes(45), mMeetingApiService.getMeetingRooms().get(0), "Test", collaboratorList);
         Meeting meeting2 = new Meeting(DateTime.now().plusMinutes(60), DateTime.now().plusMinutes(120), mMeetingApiService.getMeetingRooms().get(1), "Test 2", collaboratorList);

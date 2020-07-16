@@ -1,5 +1,7 @@
 package bryan.roca.mareu.models;
 
+import android.support.annotation.NonNull;
+
 /**
  * Mareu - bryan.roca.mareu.models<br>
  *
@@ -46,5 +48,11 @@ public class Collaborator {
         } else {
             this.id = pId;
         }
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getId();
     }
 }

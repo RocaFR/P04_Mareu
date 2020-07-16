@@ -163,12 +163,12 @@
             android:id="@+id/imageButton_addMeeting_activity_addParticipant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/item_margin"
+            android:layout_marginStart="10dp"
             android:background="@null"
             android:contentDescription="@string/icon_for_add_a_participant"
             android:src="@drawable/baseline_person_add_black_24"
             app:layout_constraintBottom_toBottomOf="@id/textView_addMeeting_activity_listOfParticipants"
-            app:layout_constraintStart_toEndOf="@id/textView_addMeeting_activity_listOfParticipants"
+            app:layout_constraintStart_toEndOf="@id/imageButton_addMeeting_activity_emptyParticipantList"
             app:layout_constraintTop_toTopOf="@id/textView_addMeeting_activity_listOfParticipants" />
 
         <TextView
@@ -180,8 +180,10 @@
             android:layout_marginEnd="@dimen/margin_perimeter"
             android:background="@drawable/bg_edittext"
             android:hint="No participant"
+            android:autoLink="email"
             android:textColor="@android:color/black"
             android:textSize="@dimen/size_meetingName"
+            android:textColorLink="@color/textColorLink"
             app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_listOfParticipants" />
 
         <ImageButton
@@ -195,6 +197,16 @@
             app:layout_constraintStart_toStartOf="@id/textView_addMeeting_activity_theListOfParticipants"
             app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_theListOfParticipants" />
 
+        <ImageButton
+            android:id="@+id/imageButton_addMeeting_activity_emptyParticipantList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/textView_addMeeting_activity_listOfParticipants"
+            android:layout_marginStart="@dimen/item_margin"
+            app:layout_constraintTop_toTopOf="@+id/imageButton_addMeeting_activity_addParticipant"
+            app:layout_constraintBottom_toBottomOf="@+id/imageButton_addMeeting_activity_addParticipant"
+            android:src="@drawable/sharp_delete_forever_black_24"
+            android:background="@null" />
 
     </android.support.constraint.ConstraintLayout>
 
