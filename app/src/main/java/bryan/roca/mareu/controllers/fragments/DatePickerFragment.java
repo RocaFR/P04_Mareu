@@ -17,10 +17,13 @@ import java.util.Calendar;
  */
 public class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 
+    private int year;
+    private int month;
+    private int day;
     private OnDateChangeListener mCallBack;
 
     public interface OnDateChangeListener {
-        void onDateChange(DatePicker pDatePicker, int pI, int pI1, int pI2);
+        void onDateChange(String pTag, int pI, int pI1, int pI2);
     }
 
     @NonNull
@@ -38,7 +41,19 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker pDatePicker, int pI, int pI1, int pI2) {
-        mCallBack.onDateChange(pDatePicker, pI, pI1, pI2);
+        mCallBack.onDateChange(getTag(), pI, pI1+1, pI2);
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
     }
 
     private void createCallBack() {

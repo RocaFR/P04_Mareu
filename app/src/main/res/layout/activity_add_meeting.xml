@@ -61,12 +61,14 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/bg_edittext"
             android:hint="01/01/2020"
+            android:textColor="@android:color/black"
             android:textAlignment="center"
             android:textColorHint="@android:color/black"
             android:textSize="@dimen/size_meetingName"
             app:layout_constraintStart_toStartOf="@id/editText_addMeeting_activity_meetingName"
             app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_beginAt"
-            app:layout_constraintWidth_percent="0.37" />
+            app:layout_constraintWidth_percent="0.37"
+            android:clickable="true"/>
 
         <TextView
             android:id="@+id/textView_addMeeting_activity_timeBegin"
@@ -74,6 +76,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittext"
             android:hint="11:00"
+            android:textColor="@android:color/black"
             android:textAlignment="center"
             android:textColorHint="@android:color/black"
             android:textSize="@dimen/size_meetingName"
@@ -102,6 +105,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/bg_edittext"
             android:hint="01/01/2020"
+            android:textColor="@android:color/black"
             android:textAlignment="center"
             android:textColorHint="@android:color/black"
             android:textSize="@dimen/size_meetingName"
@@ -115,6 +119,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_edittext"
             android:hint="12:00"
+            android:textColor="@android:color/black"
             android:textAlignment="center"
             android:textColorHint="@android:color/black"
             android:textSize="@dimen/size_meetingName"
@@ -192,7 +197,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_perimeter"
             android:background="@drawable/bg_circle_add_meeting"
-            android:src="@drawable/baseline_playlist_add_white_36"
+            android:src="@drawable/baseline_playlist_add_black_36"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/textView_addMeeting_activity_theListOfParticipants"
             app:layout_constraintStart_toStartOf="@id/textView_addMeeting_activity_theListOfParticipants"
             app:layout_constraintTop_toBottomOf="@id/textView_addMeeting_activity_theListOfParticipants" />
