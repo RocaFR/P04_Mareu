@@ -23,7 +23,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     private OnDateChangeListener mCallBack;
 
     public interface OnDateChangeListener {
-        void onDateChange(String pTag, int pI, int pI1, int pI2);
+        void onDateChange(String pTag, String pI, String pI1, String pI2);
     }
 
     @NonNull
@@ -41,7 +41,21 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
 
     @Override
     public void onDateSet(DatePicker pDatePicker, int pI, int pI1, int pI2) {
-        mCallBack.onDateChange(getTag(), pI, pI1+1, pI2);
+        pI1 += 1;
+        if (pI1 < 10 || pI2 < 10) {
+            String month = "" + pI1;
+            String day = "" + pI2;
+
+            if (pI1 < 10) {
+                month = "0" + pI1;
+            }
+            if (pI2 < 10) {
+                day = "0" + pI2;
+            }
+            mCallBack.onDateChange(getTag(), Integer.toString(pI), month, day);
+        } else {
+            mCallBack.onDateChange(getTag(), Integer.toString(pI), Integer.toString(pI1), Integer.toString(pI2));
+        }
     }
 
     public int getYear() {

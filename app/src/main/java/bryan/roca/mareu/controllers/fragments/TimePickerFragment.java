@@ -15,7 +15,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
     private OnTimeSetListener mCallBack;
 
     public interface OnTimeSetListener {
-        void onTimeSet(String pTag, int pI, int pI1);
+        void onTimeSeted(String pTag, String pI, String pI1);
     }
 
     public TimePickerFragment() {
@@ -36,7 +36,20 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker pTimePicker, int pI, int pI1) {
-        mCallBack.onTimeSet(getTag(), pI, pI1);
+        if (pI < 10 | pI1 < 10) {
+            String hour = "" + pI;
+            String minute = "" + pI1;
+
+            if (pI < 10) {
+                hour = "0" + pI;
+            }
+            if (pI1 < 10) {
+                minute = "0" + pI1;
+            }
+            mCallBack.onTimeSeted(getTag(), hour, minute);
+        } else {
+            mCallBack.onTimeSeted(getTag(), Integer.toString(pI), Integer.toString(pI1));
+        }
     }
 
     private void createCallBack() {

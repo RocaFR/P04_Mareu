@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         mMeetingApiService.addMeeting(meeting2);
 
         this.configureRecyclerView();
-        this.configureOnClickItem();
 
         mFloatingActionButtonAddActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    private void configureOnClickItem() {
-        // TODO launch Detail Meeting Activity
     }
 
     @Override
@@ -91,7 +86,11 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mMeetingAdapter);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.configureRecyclerView();
+    }
 
     /**
      * Fired when the user tap the Image Remove Button

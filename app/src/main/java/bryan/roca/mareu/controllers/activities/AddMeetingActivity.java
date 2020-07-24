@@ -18,12 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import bryan.roca.mareu.R;
 import bryan.roca.mareu.controllers.fragments.DatePickerFragment;
 import bryan.roca.mareu.controllers.fragments.TimePickerFragment;
+import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;
 import bryan.roca.mareu.service.DummyMeetingApiService;
@@ -46,7 +51,6 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
 
     // Service
     private MeetingApiService mMeetingApiService;
-    List<Meeting> mMeetingList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,10 +84,28 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
         mImageButtonAddMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO implement the add Meeting from API
+                // Fetching Dates datas
+                DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
+                String dateBeginFromInput = mTextViewDateBegin.getText().toString() + " " + mTextViewTimeBegin.getText().toString();
+                String dateEndFromInput = mTextViewDateEnd.getText().toString() + " " + mTextViewTimeEnd.getText().toString();
+                DateTime dateBegin = formatter.parseDateTime(dateBeginFromInput);
+                DateTime dateEnd = formatter.parseDateTime(dateEndFromInput);
+                // Fetching Participants datas
+                List<String> participantsListFromString = new ArrayList<>(Arrays.asList(mTextViewTheParticipantsList.getText().toString().split(" , ")));
+                List<Collaborator> theListOfParticipants = new ArrayList<>();
+
+                for (String collaboratorString : participantsListFromString) {
+                    Collaborator collaborator = new Collaborator(collaboratorString);
+                    theListOfParticipants.add(collaborator);
+                }
+
+                Meeting meetingToAdd = new Meeting(dateBegin, dateEnd, (MeetingRoom) mSpinner.getSelectedItem(), mEditTextMeetingsName.getText().toString(), theListOfParticipants);
+                mMeetingApiService.addMeeting(meetingToAdd);
             }
         });
     }
+
+
 
     /**
      * Update the dates and times's TextViews.
@@ -142,7 +164,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
      * @param pI2 - the day of month
      */
     @Override
-    public void onDateChange(String pTag, int pI, int pI1, int pI2) {
+    public void onDateChange(String pTag, String pI, String pI1, String pI2) {
         switch (pTag) {
             case "dateBeginPicker":
                 mTextViewDateBegin.setText(pI2 + "/" + pI1 + "/" + pI);
@@ -160,7 +182,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
      * @param pI1 - the minutes
      */
     @Override
-    public void onTimeSet(String pTag, int pI, int pI1) {
+    public void onTimeSeted(String pTag, String pI, String pI1) {
         switch (pTag) {
             case "timeBeginPicker":
                 mTextViewTimeBegin.setText(pI + ":" + pI1);
@@ -258,8 +280,8 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
      * Configure the Meeting Rooms's Spinner
      */
     private void configureMeetingRoomSpinner() {
-        List<MeetingRoom> meetingList = mMeetingApiService.getMeetingRooms();
-        ArrayAdapter<MeetingRoom> meetingRoomArrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, meetingList);
+        List<MeetingRoom> meetingRoomList = mMeetingApiService.getMeetingRooms();
+        ArrayAdapter<MeetingRoom> meetingRoomArrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, meetingRoomList);
         mSpinner.setAdapter(meetingRoomArrayAdapter);
     }
 
