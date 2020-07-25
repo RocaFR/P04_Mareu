@@ -33,6 +33,7 @@ import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;
 import bryan.roca.mareu.service.DummyMeetingApiService;
 import bryan.roca.mareu.service.MeetingApiService;
+import bryan.roca.mareu.ui.di.DI;
 import bryan.roca.mareu.utils.IsEmailValid;
 
 public class AddMeetingActivity extends AppCompatActivity implements DatePickerFragment.OnDateChangeListener, TimePickerFragment.OnTimeSetListener {
@@ -58,7 +59,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
         setContentView(R.layout.activity_add_meeting);
 
         // Service
-        mMeetingApiService = new DummyMeetingApiService();
+        mMeetingApiService = DI.getMeetingApiService();
 
         // UI
         mEditTextMeetingsName = findViewById(R.id.editText_addMeeting_activity_meetingName);
@@ -91,7 +92,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
                 DateTime dateBegin = formatter.parseDateTime(dateBeginFromInput);
                 DateTime dateEnd = formatter.parseDateTime(dateEndFromInput);
                 // Fetching Participants datas
-                List<String> participantsListFromString = new ArrayList<>(Arrays.asList(mTextViewTheParticipantsList.getText().toString().split(" , ")));
+                List<String> participantsListFromString = Arrays.asList(mTextViewTheParticipantsList.getText().toString().split(","));
                 List<Collaborator> theListOfParticipants = new ArrayList<>();
 
                 for (String collaboratorString : participantsListFromString) {
@@ -100,7 +101,12 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
                 }
 
                 Meeting meetingToAdd = new Meeting(dateBegin, dateEnd, (MeetingRoom) mSpinner.getSelectedItem(), mEditTextMeetingsName.getText().toString(), theListOfParticipants);
-                mMeetingApiService.addMeeting(meetingToAdd);
+                if (mMeetingApiService.addMeeting(meetingToAdd)) {
+                    Toast.makeText(getBaseContext(), meetingToAdd.getSubject() + " added !", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(getBaseContext(), "Something was wrong, please check fields...", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
