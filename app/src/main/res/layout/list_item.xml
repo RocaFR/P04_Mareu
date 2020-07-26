@@ -92,8 +92,7 @@
         android:textColorLink="@color/textColorLink"
         android:textSize="12sp"
         android:padding="7dp"
-        android:ellipsize="end
-"
+        android:ellipsize="end"
         android:singleLine="true"/>
 
     <TextView
