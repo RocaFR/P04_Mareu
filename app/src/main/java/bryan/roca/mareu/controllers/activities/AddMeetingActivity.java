@@ -21,6 +21,7 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -117,13 +118,31 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
      * Update the dates and times's TextViews.
      */
     private void initializeTextViews() {
+        // Formatters
+        DateTimeFormatter dateTimeFormatterDay = DateTimeFormat.forPattern("dd");
+        DateTimeFormatter dateTimeFormatterMonth = DateTimeFormat.forPattern("MM");
+        DateTimeFormatter dateTimeFormatterYear = DateTimeFormat.forPattern("yyyy");
+        DateTimeFormatter dateTimeFormatterHour = DateTimeFormat.forPattern("HH");
+        DateTimeFormatter dateTimeFormatterMinutes= DateTimeFormat.forPattern("mm");
+        // Dates
         DateTime dateTimeBegin = DateTime.now();
         DateTime dateTimeEnd = dateTimeBegin.plusHours(1);
+        // Fetching begin datas
+        String dayOfMonthBegin = dateTimeBegin.toString(dateTimeFormatterDay);
+        String monthOfYearBegin = dateTimeBegin.toString(dateTimeFormatterMonth);
+        String year = dateTimeBegin.toString(dateTimeFormatterYear);
+        String hourBegin = dateTimeBegin.toString(dateTimeFormatterHour);
+        String minutesBegin = dateTimeBegin.toString(dateTimeFormatterMinutes);
+        // Fetching end datas
+        String dayOfMonthEnd = dateTimeEnd.toString(dateTimeFormatterDay);
+        String monthOfYearEnd = dateTimeEnd.toString(dateTimeFormatterMonth);
+        String hourEnd = dateTimeEnd.toString(dateTimeFormatterHour);
+        String minutesEnd = dateTimeEnd.toString(dateTimeFormatterMinutes);
 
-        mTextViewDateBegin.setText(dateTimeBegin.getDayOfMonth() + "/" + dateTimeBegin.getMonthOfYear() + "/" + dateTimeBegin.getYear());
-        mTextViewDateEnd.setText(dateTimeEnd.getDayOfMonth() + "/" + dateTimeEnd.getMonthOfYear() + "/" + dateTimeEnd.getYear());
-        mTextViewTimeBegin.setText(dateTimeBegin.getHourOfDay() + ":" + dateTimeBegin.getMinuteOfHour());
-        mTextViewTimeEnd.setText(dateTimeEnd.getHourOfDay() + ":" + dateTimeEnd.getMinuteOfHour());
+        mTextViewDateBegin.setText(dayOfMonthBegin + "/" + monthOfYearBegin + "/" + year);
+        mTextViewDateEnd.setText(dayOfMonthEnd + "/" + monthOfYearEnd + "/" + year);
+        mTextViewTimeBegin.setText(hourBegin + ":" + minutesBegin);
+        mTextViewTimeEnd.setText(hourEnd + ":" + minutesEnd);
     }
 
     /**
