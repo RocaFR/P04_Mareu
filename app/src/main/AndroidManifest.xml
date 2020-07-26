@@ -13,7 +13,7 @@
         <activity
             android:name=".controllers.activities.AddMeetingActivity"
             android:parentActivityName=".controllers.activities.MainActivity"
-            android:label="New Meeting"/>
+            android:label="New Meeting" />
         <activity android:name=".controllers.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

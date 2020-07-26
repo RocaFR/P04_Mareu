@@ -5,6 +5,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -58,7 +59,6 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
-
         // Service
         mMeetingApiService = DI.getMeetingApiService();
 
