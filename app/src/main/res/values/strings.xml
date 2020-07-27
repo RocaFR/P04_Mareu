@@ -11,4 +11,6 @@
     <string name="alert_dialog_positive_button">Add</string>
     <string name="alert_dialog_negative_button">Cancel</string>
     <string name="item_filter">Filter</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

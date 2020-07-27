@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FilterMeetingsFragment">
+
+    <TextView
+        android:id="@+id/fragment_filter_textView_pickADate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/fragment_filter_textView_dateBegin"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="Pick a date..."
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"/>
+
+
+    <TextView
+        android:id="@+id/fragment_filter_textView_dateBegin"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/Fields"
+        app:layout_constraintTop_toBottomOf="@id/fragment_filter_textView_pickADate"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="15sp"
+        android:hint="20/07/2020"/>
+
+    <TextView
+        android:id="@+id/fragment_filter_textView_dateEnd"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/Fields"
+        app:layout_constraintTop_toTopOf="@id/fragment_filter_textView_dateBegin"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_filter_textView_dateBegin"
+        android:layout_marginTop="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="15sp"
+        android:hint="21/07/2020"/>
+
+    <TextView
+        android:id="@+id/fragment_filter_textView_pickAMeetingRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/fragment_filter_textView_dateBegin"
+        app:layout_constraintTop_toBottomOf="@id/fragment_filter_textView_dateBegin"
+        android:text="Pick a Meeting Room..."
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="20dp"/>
+
+    <Spinner
+        android:id="@+id/fragment_filter_spinner_MeetingRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Fields"
+        app:layout_constraintStart_toStartOf="@id/fragment_filter_textView_dateBegin"
+        app:layout_constraintTop_toBottomOf="@id/fragment_filter_textView_pickAMeetingRoom"
+        android:layout_marginTop="10dp" />
+
+</android.support.constraint.ConstraintLayout>

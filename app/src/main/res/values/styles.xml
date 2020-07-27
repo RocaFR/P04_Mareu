@@ -7,4 +7,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Fields">
+        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:layout_marginStart">@dimen/margin_perimeter</item>
+        <item name="android:layout_marginTop">@dimen/margin_perimeter</item>
+        <item name="android:layout_marginEnd">@dimen/margin_perimeter</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
 </resources>
