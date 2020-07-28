@@ -7,15 +7,26 @@
     tools:context=".FilterMeetingsFragment">
 
     <TextView
-        android:id="@+id/fragment_filter_textView_pickADate"
+        android:id="@+id/fragment_filter_textView_pickDateBegin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/fragment_filter_textView_dateBegin"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Pick a date..."
-        android:textSize="18sp"
+        android:text="@string/fragment_filter_textview_beginningdate"
+        android:textSize="15sp"
         android:textColor="@android:color/black"
         android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/fragment_filter_textView_pickDateEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/fragment_filter_textView_dateEnd"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:layout_marginTop="10dp"
+        android:text="@string/fragment_filter_textview_endingdate"/>
 
 
     <TextView
@@ -23,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/Fields"
-        app:layout_constraintTop_toBottomOf="@id/fragment_filter_textView_pickADate"
+        app:layout_constraintTop_toBottomOf="@id/fragment_filter_textView_pickDateBegin"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="15sp"
@@ -48,7 +59,7 @@
         app:layout_constraintStart_toStartOf="@id/fragment_filter_textView_dateBegin"
         app:layout_constraintTop_toBottomOf="@id/fragment_filter_textView_dateBegin"
         android:text="Pick a Meeting Room..."
-        android:textSize="18sp"
+        android:textSize="15sp"
         android:textColor="@android:color/black"
         android:layout_marginTop="20dp"/>
 

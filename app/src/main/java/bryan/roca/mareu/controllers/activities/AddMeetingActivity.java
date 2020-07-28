@@ -5,7 +5,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -22,7 +21,6 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,10 +31,10 @@ import bryan.roca.mareu.controllers.fragments.TimePickerFragment;
 import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;
-import bryan.roca.mareu.service.DummyMeetingApiService;
 import bryan.roca.mareu.service.MeetingApiService;
 import bryan.roca.mareu.ui.di.DI;
 import bryan.roca.mareu.utils.IsEmailValid;
+import bryan.roca.mareu.utils.SetupDatesForTextViews;
 
 public class AddMeetingActivity extends AppCompatActivity implements DatePickerFragment.OnDateChangeListener, TimePickerFragment.OnTimeSetListener {
 
@@ -82,6 +80,9 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
         this.configureImageButtonAddAParticipantAndParticipantList();
     }
 
+    /**
+     * Listener for the button used for add a Meeting
+     */
     private void configureImageButtonListenerAddMeeting() {
         mImageButtonAddMeeting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,37 +113,17 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
         });
     }
 
-
-
     /**
      * Update the dates and times's TextViews.
      */
     private void initializeTextViews() {
-        // Formatters
-        DateTimeFormatter dateTimeFormatterDay = DateTimeFormat.forPattern("dd");
-        DateTimeFormatter dateTimeFormatterMonth = DateTimeFormat.forPattern("MM");
-        DateTimeFormatter dateTimeFormatterYear = DateTimeFormat.forPattern("yyyy");
-        DateTimeFormatter dateTimeFormatterHour = DateTimeFormat.forPattern("HH");
-        DateTimeFormatter dateTimeFormatterMinutes= DateTimeFormat.forPattern("mm");
-        // Dates
-        DateTime dateTimeBegin = DateTime.now();
-        DateTime dateTimeEnd = dateTimeBegin.plusHours(1);
-        // Fetching begin datas
-        String dayOfMonthBegin = dateTimeBegin.toString(dateTimeFormatterDay);
-        String monthOfYearBegin = dateTimeBegin.toString(dateTimeFormatterMonth);
-        String year = dateTimeBegin.toString(dateTimeFormatterYear);
-        String hourBegin = dateTimeBegin.toString(dateTimeFormatterHour);
-        String minutesBegin = dateTimeBegin.toString(dateTimeFormatterMinutes);
-        // Fetching end datas
-        String dayOfMonthEnd = dateTimeEnd.toString(dateTimeFormatterDay);
-        String monthOfYearEnd = dateTimeEnd.toString(dateTimeFormatterMonth);
-        String hourEnd = dateTimeEnd.toString(dateTimeFormatterHour);
-        String minutesEnd = dateTimeEnd.toString(dateTimeFormatterMinutes);
+        SetupDatesForTextViews setup = new SetupDatesForTextViews();
+        setup.setup();
 
-        mTextViewDateBegin.setText(dayOfMonthBegin + "/" + monthOfYearBegin + "/" + year);
-        mTextViewDateEnd.setText(dayOfMonthEnd + "/" + monthOfYearEnd + "/" + year);
-        mTextViewTimeBegin.setText(hourBegin + ":" + minutesBegin);
-        mTextViewTimeEnd.setText(hourEnd + ":" + minutesEnd);
+        mTextViewDateBegin.setText(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
+        mTextViewDateEnd.setText(setup.getDayOfMonthEnd() + "/" + setup.getMonthOfYearEnd() + "/" + setup.getYear());
+        mTextViewTimeBegin.setText(setup.getHourBegin() + ":" + setup.getMinutesBegin());
+        mTextViewTimeEnd.setText(setup.getHourEnd() + ":" + setup.getMinutesEnd());
     }
 
     /**
@@ -214,6 +195,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
                 break;
             case "timeEndPicker":
                 mTextViewTimeEnd.setText(pI + ":" + pI1);
+                break;
         }
     }
 
@@ -292,7 +274,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
 
     /**
      * Util for configureImageButtonAddMeeting()
-     * @return
+     * @return true if all fields are fill
      */
     private Boolean checkAllFields() {
         if (!TextUtils.isEmpty(mEditTextMeetingsName.getText())) {
