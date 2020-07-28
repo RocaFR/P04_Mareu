@@ -150,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
             mTextViewFilterDateEnd = view.findViewById(R.id.fragment_filter_textView_dateEnd);
             SetupDatesForTextViews setup = new SetupDatesForTextViews();
             setup.setup();
-            mTextViewFilterDateBegin.setText(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
-            mTextViewFilterDateEnd.setText(setup.getDayOfMonthEnd() + "/" + setup.getMonthOfYearEnd() + "/" + setup.getYear());
+            mTextViewFilterDateBegin.setHint(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
+            mTextViewFilterDateEnd.setHint(setup.getDayOfMonthEnd() + "/" + setup.getMonthOfYearEnd() + "/" + setup.getYear());
 
             mTextViewFilterDateBegin.setOnClickListener(new View.OnClickListener() {
                 @Override

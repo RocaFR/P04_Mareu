@@ -120,10 +120,10 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
         SetupDatesForTextViews setup = new SetupDatesForTextViews();
         setup.setup();
 
-        mTextViewDateBegin.setText(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
-        mTextViewDateEnd.setText(setup.getDayOfMonthEnd() + "/" + setup.getMonthOfYearEnd() + "/" + setup.getYear());
-        mTextViewTimeBegin.setText(setup.getHourBegin() + ":" + setup.getMinutesBegin());
-        mTextViewTimeEnd.setText(setup.getHourEnd() + ":" + setup.getMinutesEnd());
+        mTextViewDateBegin.setHint(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
+        mTextViewDateEnd.setHint(setup.getDayOfMonthEnd() + "/" + setup.getMonthOfYearEnd() + "/" + setup.getYear());
+        mTextViewTimeBegin.setHint(setup.getHourBegin() + ":" + setup.getMinutesBegin());
+        mTextViewTimeEnd.setHint(setup.getHourEnd() + ":" + setup.getMinutesEnd());
     }
 
     /**
