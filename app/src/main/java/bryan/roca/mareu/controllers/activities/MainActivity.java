@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -46,15 +47,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private MeetingAdapter mMeetingAdapter;
     private TextView mTextViewFilterDateBegin;
     private TextView mTextViewFilterDateEnd;
+    private FloatingActionButton floatingActionButtonAddMeeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Views
         mRecyclerView = findViewById(R.id.recyclerView);
-        FloatingActionButton floatingActionButtonAddActivity = findViewById(R.id.floatingButton_addMeeting);
+        floatingActionButtonAddMeeting = findViewById(R.id.floatingButton_addMeeting);
 
         // Data
         List<Collaborator> collaboratorList = Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("solene.moussion@gmail.com"), new Collaborator("marineducap33@free.fr"));
@@ -65,15 +68,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         mMeetingApiService.addMeeting(meeting2);
 
         this.configureRecyclerView();
-
-        floatingActionButtonAddActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View pView) {
-                Intent intent = new Intent(getBaseContext(), AddMeetingActivity.class);
-                startActivity(intent);
-            }
-        });
+        this.configureFloatingActionButtonAddMeeting();
     }
+
 
     @Override
     protected void onStart() {
@@ -91,6 +88,19 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     protected void onResume() {
         super.onResume();
         this.configureRecyclerView();
+    }
+
+    /**
+     * Configure the Floating Action Button Add Meeting listener
+     */
+    private void configureFloatingActionButtonAddMeeting() {
+        floatingActionButtonAddMeeting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View pView) {
+                Intent intent = new Intent(getBaseContext(), AddMeetingActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     /**
