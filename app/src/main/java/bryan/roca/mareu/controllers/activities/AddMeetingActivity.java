@@ -98,17 +98,21 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
                 List<String> participantsListFromString = Arrays.asList(mTextViewTheParticipantsList.getText().toString().split(","));
                 List<Collaborator> theListOfParticipants = new ArrayList<>();
 
-                for (String collaboratorString : participantsListFromString) {
-                    Collaborator collaborator = new Collaborator(collaboratorString);
-                    theListOfParticipants.add(collaborator);
-                }
+                if (dateBegin.isBefore(dateEnd)) {
+                    for (String collaboratorString : participantsListFromString) {
+                        Collaborator collaborator = new Collaborator(collaboratorString);
+                        theListOfParticipants.add(collaborator);
+                    }
 
-                Meeting meetingToAdd = new Meeting(dateBegin, dateEnd, (MeetingRoom) mSpinner.getSelectedItem(), mEditTextMeetingsName.getText().toString(), theListOfParticipants);
-                if (mMeetingApiService.addMeeting(meetingToAdd)) {
-                    Toast.makeText(getBaseContext(), meetingToAdd.getSubject() + " added !", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Meeting meetingToAdd = new Meeting(dateBegin, dateEnd, (MeetingRoom) mSpinner.getSelectedItem(), mEditTextMeetingsName.getText().toString(), theListOfParticipants);
+                    if (mMeetingApiService.addMeeting(meetingToAdd)) {
+                        Toast.makeText(getBaseContext(), meetingToAdd.getSubject() + " added !", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(getBaseContext(), "Something was wrong, please check fields...", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    Toast.makeText(getBaseContext(), "Something was wrong, please check fields...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getBaseContext(), R.string.date_picking_error, Toast.LENGTH_SHORT).show();
                 }
             }
         });
