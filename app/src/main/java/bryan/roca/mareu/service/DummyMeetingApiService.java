@@ -1,11 +1,15 @@
 package bryan.roca.mareu.service;
 
+import android.widget.Toast;
+
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import bryan.roca.mareu.R;
+import bryan.roca.mareu.controllers.activities.MainActivity;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;
 
@@ -19,20 +23,44 @@ public class DummyMeetingApiService implements MeetingApiService {
     private List<Meeting> mMeetingList = DummyMeetingGenerator.generateMeetings();
     private List<MeetingRoom> mMeetingRoomsList = DummyMeetingGenerator.generateMeetingRooms();
 
+    /**
+     * Get the list of all Meetings
+     * @return
+     */
     @Override
     public List<Meeting> getMeetings() { return mMeetingList; }
 
     @Override
     public List<Meeting> getMeetings(MeetingRoom pMeetingRoom) {
-        List<Meeting> mMeetingListByMeetingRoom = new ArrayList<>();
+        List<Meeting> meetingListByMeetingRoom = new ArrayList<>();
         if (pMeetingRoom != null) {
             for (Meeting meeting : mMeetingList) {
                 if (pMeetingRoom.equals(meeting.getPlace())) {
-                    mMeetingListByMeetingRoom.add(meeting);
+                    meetingListByMeetingRoom.add(meeting);
                 }
             }
         }
-        return mMeetingListByMeetingRoom;
+        return meetingListByMeetingRoom;
+    }
+
+    @Override
+    public List<Meeting> getMeetings(DateTime pDateTimeBegin, DateTime pDateTimeEnd) {
+        // Adding hours for enable overlaps
+        pDateTimeEnd = pDateTimeEnd.plusHours(23).plusMinutes(59);
+        mMeetingList = getMeetings();
+        List<Meeting> meetingListByDateRange = new ArrayList<>();
+
+        if (pDateTimeBegin.isBefore(pDateTimeEnd)) {
+            Interval intervalToFilter = new Interval(pDateTimeBegin, pDateTimeEnd);
+            for (Meeting meeting : mMeetingList) {
+                if (meeting.getInterval().overlaps(intervalToFilter)) {
+                    meetingListByDateRange.add(meeting);
+                }
+            }
+        } else {
+            return getMeetings();
+        }
+        return meetingListByDateRange;
     }
 
     @Override

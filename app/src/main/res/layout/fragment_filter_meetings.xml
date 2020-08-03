@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FilterMeetingsFragment">
 
+
     <TextView
         android:id="@+id/fragment_filter_textView_pickDateBegin"
         android:layout_width="wrap_content"
@@ -15,14 +16,15 @@
         android:text="@string/fragment_filter_textview_beginningdate"
         android:textSize="15sp"
         android:textColor="@android:color/black"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="20dp"/>
 
     <TextView
         android:id="@+id/fragment_filter_textView_pickDateEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/fragment_filter_textView_dateEnd"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/fragment_filter_textView_pickDateBegin"
+        app:layout_constraintBottom_toBottomOf="@id/fragment_filter_textView_pickDateBegin"
         android:textSize="15sp"
         android:textColor="@android:color/black"
         android:layout_marginTop="10dp"
@@ -38,7 +40,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="15sp"
-        android:hint="20/07/2020"/>
+        tools:hint="20/07/2020"/>
 
     <TextView
         android:id="@+id/fragment_filter_textView_dateEnd"
@@ -50,7 +52,7 @@
         android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="15sp"
-        android:hint="21/07/2020"/>
+        tools:hint="21/07/2020"/>
 
     <TextView
         android:id="@+id/fragment_filter_textView_pickAMeetingRoom"
@@ -58,7 +60,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/fragment_filter_textView_dateBegin"
         app:layout_constraintTop_toBottomOf="@id/fragment_filter_textView_dateBegin"
-        android:text="Pick a Meeting Room..."
+        android:text="@string/fragment_filter_pickMeeting"
         android:textSize="15sp"
         android:textColor="@android:color/black"
         android:layout_marginTop="20dp"/>

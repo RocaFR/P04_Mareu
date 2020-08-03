@@ -5,6 +5,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -120,10 +121,10 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
         SetupDatesForTextViews setup = new SetupDatesForTextViews();
         setup.setup();
 
-        mTextViewDateBegin.setHint(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
-        mTextViewDateEnd.setHint(setup.getDayOfMonthEnd() + "/" + setup.getMonthOfYearEnd() + "/" + setup.getYear());
-        mTextViewTimeBegin.setHint(setup.getHourBegin() + ":" + setup.getMinutesBegin());
-        mTextViewTimeEnd.setHint(setup.getHourEnd() + ":" + setup.getMinutesEnd());
+        mTextViewDateBegin.setText(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
+        mTextViewDateEnd.setText(setup.getDayOfMonthEnd() + "/" + setup.getMonthOfYearEnd() + "/" + setup.getYear());
+        mTextViewTimeBegin.setText(setup.getHourBegin() + ":" + setup.getMinutesBegin());
+        mTextViewTimeEnd.setText(setup.getHourEnd() + ":" + setup.getMinutesEnd());
     }
 
     /**

@@ -1,5 +1,7 @@
 package bryan.roca.mareu.service;
 
+import org.joda.time.DateTime;
+
 import java.util.List;
 
 import bryan.roca.mareu.models.Meeting;
@@ -24,6 +26,14 @@ public interface MeetingApiService {
      * @return all the Meetings list filtered
      */
     List<Meeting> getMeetings(MeetingRoom pMeetingRoom);
+
+    /**
+     * Get the Meeting list for this Date Range.
+     * @param pDateTimeBegin the Date where the Meetings begin
+     * @param pDateTimeEnd the Date where the Meetings end
+     * @return Meetings in this range
+     */
+    List<Meeting> getMeetings(DateTime  pDateTimeBegin, DateTime pDateTimeEnd);
 
     /**
      * Add a Meeting to the list of Meetings.

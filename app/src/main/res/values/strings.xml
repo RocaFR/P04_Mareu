@@ -15,4 +15,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fragment_filter_textview_beginningdate">Beginning the</string>
     <string name="fragment_filter_textview_endingdate">Ending the</string>
+    <string name="fragment_filter_title">By date range OR Meeting Room</string>
+    <string name="fragment_filter_pickMeeting">Pick a Meeting Room...</string>
+    <string name="pick_date_filter">Please pick a beginning and ending date</string>
+    <string name="date_picking_error">The beginning date cannot be after the ending date</string>
 </resources>

@@ -11,17 +11,24 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,13 +53,17 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private List<Meeting> mMeetingList;
     private MeetingAdapter mMeetingAdapter;
     private TextView mTextViewFilterDateBegin;
+    private TextView mTextViewPickAMeetingRoomText;
     private TextView mTextViewFilterDateEnd;
     private FloatingActionButton floatingActionButtonAddMeeting;
+    private int mFilterMode;
+    public static final int FILTER_MODE_MEETINGROOM = 0;
+    public static final int FILTER_MODE_DATE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         // Views
@@ -64,13 +75,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         mMeetingApiService = DI.getMeetingApiService();
         Meeting meeting = new Meeting(DateTime.now(), DateTime.now().plusMinutes(45), mMeetingApiService.getMeetingRooms().get(0), "Test", collaboratorList);
         Meeting meeting2 = new Meeting(DateTime.now().plusMinutes(60), DateTime.now().plusMinutes(120), mMeetingApiService.getMeetingRooms().get(1), "Test 2", collaboratorList);
+        Meeting meeting3 = new Meeting(DateTime.now().plusDays(1), DateTime.now().plusDays(1).plusMinutes(45), mMeetingApiService.getMeetingRooms().get(1), "Test 3", collaboratorList);
         mMeetingApiService.addMeeting(meeting);
         mMeetingApiService.addMeeting(meeting2);
+        mMeetingApiService.addMeeting(meeting3);
 
         this.configureRecyclerView();
         this.configureFloatingActionButtonAddMeeting();
     }
-
 
     @Override
     protected void onStart() {
@@ -142,12 +154,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if ( item.getItemId() == R.id.menuMain_item_filter ) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             LayoutInflater inflater = LayoutInflater.from(this);
             View view = inflater.inflate(R.layout.fragment_filter_meetings, null);
 
             mTextViewFilterDateBegin = view.findViewById(R.id.fragment_filter_textView_dateBegin);
             mTextViewFilterDateEnd = view.findViewById(R.id.fragment_filter_textView_dateEnd);
+            mTextViewPickAMeetingRoomText = view.findViewById(R.id.fragment_filter_textView_pickAMeetingRoom);
+
             SetupDatesForTextViews setup = new SetupDatesForTextViews();
             setup.setup();
             mTextViewFilterDateBegin.setHint(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
@@ -176,13 +190,41 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                 }
             }
             spinner.setAdapter(meetingRoomArrayAdapter);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    mFilterMode = FILTER_MODE_MEETINGROOM;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
             builder.setView(view);
             builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    List<Meeting> filteredMeetings = mMeetingApiService.getMeetings((MeetingRoom)spinner.getSelectedItem());
-                    mMeetingAdapter = new MeetingAdapter(filteredMeetings);
-                    mRecyclerView.setAdapter(mMeetingAdapter);
+                    List<Meeting> filteredMeetings;
+                    if (mFilterMode == FILTER_MODE_MEETINGROOM) {
+                        filteredMeetings = mMeetingApiService.getMeetings((MeetingRoom)spinner.getSelectedItem());
+                        mMeetingAdapter = new MeetingAdapter(filteredMeetings);
+                        mRecyclerView.setAdapter(mMeetingAdapter);
+                    } else if (mFilterMode == FILTER_MODE_DATE) {
+                        if (!TextUtils.isEmpty(mTextViewFilterDateBegin.getText()) && !TextUtils.isEmpty(mTextViewFilterDateEnd.getText())) {
+                            // Fetching Dates datas
+                            DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy");
+                            String dateBeginFromInput = mTextViewFilterDateBegin.getText().toString();
+                            String dateEndFromInput = mTextViewFilterDateEnd.getText().toString();
+                            DateTime dateBegin = formatter.parseDateTime(dateBeginFromInput);
+                            DateTime dateEnd = formatter.parseDateTime(dateEndFromInput);
+                            filteredMeetings = mMeetingApiService.getMeetings(dateBegin, dateEnd);
+                            mMeetingAdapter = new MeetingAdapter(filteredMeetings);
+                            mRecyclerView.setAdapter(mMeetingAdapter);
+                        } else {
+                            Toast.makeText(getBaseContext(), R.string.pick_date_filter, Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 }
             });
             builder.setNeutralButton("Reset", new DialogInterface.OnClickListener() {
@@ -198,8 +240,50 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
                 }
             });
+            builder.setTitle("By Date OR Meeting Room");
             AlertDialog dialog = builder.create();
             dialog.show();
+
+            mTextViewFilterDateBegin.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mTextViewPickAMeetingRoomText.setVisibility(View.GONE);
+                    spinner.setVisibility(View.GONE);
+                    spinner.setEnabled(false);
+                    spinner.setClickable(false);
+                    mFilterMode = FILTER_MODE_DATE;
+                }
+            });
+            mTextViewFilterDateEnd.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    mTextViewPickAMeetingRoomText.setVisibility(View.GONE);
+                    spinner.setVisibility(View.GONE);
+                    spinner.setEnabled(false);
+                    spinner.setClickable(false);
+                    mFilterMode = FILTER_MODE_DATE;
+                }
+            });
             return true;
         } else {
             return super.onOptionsItemSelected(item);

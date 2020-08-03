@@ -7,4 +7,5 @@
     <color name="buttonAddMeetingTrue">@android:color/black</color>
     <color name="buttonAddMeetingFalse">#E0E0E0</color>
     <color name="textColorLink">@android:color/black</color>
+    <color name="spinnerBackgroundDisable">@android:color/black</color>
 </resources>
