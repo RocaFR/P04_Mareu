@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private int mFilterMode;
     public static final int FILTER_MODE_MEETINGROOM = 0;
     public static final int FILTER_MODE_DATE = 1;
+    private TextView mTextViewNoMeeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,23 +67,38 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
         setContentView(R.layout.activity_main);
 
+        // Service
+        mMeetingApiService = DI.getMeetingApiService();
+
         // Views
         mRecyclerView = findViewById(R.id.recyclerView);
         floatingActionButtonAddMeeting = findViewById(R.id.floatingButton_addMeeting);
+        mTextViewNoMeeting = findViewById(R.id.activity_main_textView_noMeeting);
 
-        // Data
-        List<Collaborator> collaboratorList = Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("solene.moussion@gmail.com"), new Collaborator("marineducap33@free.fr"));
-        mMeetingApiService = DI.getMeetingApiService();
+        /** // Data
+         List<Collaborator> collaboratorList = Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("solene.moussion@gmail.com"), new Collaborator("marineducap33@free.fr"));
         Meeting meeting = new Meeting(DateTime.now(), DateTime.now().plusMinutes(45), mMeetingApiService.getMeetingRooms().get(0), "Test", collaboratorList);
         Meeting meeting2 = new Meeting(DateTime.now().plusMinutes(60), DateTime.now().plusMinutes(120), mMeetingApiService.getMeetingRooms().get(1), "Test 2", collaboratorList);
         Meeting meeting3 = new Meeting(DateTime.now().plusDays(1), DateTime.now().plusDays(1).plusMinutes(45), mMeetingApiService.getMeetingRooms().get(1), "Test 3", collaboratorList);
         mMeetingApiService.addMeeting(meeting);
         mMeetingApiService.addMeeting(meeting2);
-        mMeetingApiService.addMeeting(meeting3);
+        mMeetingApiService.addMeeting(meeting3);**/
 
-        this.configureRecyclerView();
+        this.configureHomeView();
         this.configureFloatingActionButtonAddMeeting();
     }
+
+    private void configureHomeView() {
+        mMeetingList = mMeetingApiService.getMeetings();
+        if (mMeetingList.isEmpty()) {
+            mTextViewNoMeeting.setVisibility(View.VISIBLE);
+        } else {
+            mTextViewNoMeeting.setVisibility(View.GONE);
+        }
+        this.configureRecyclerView();
+    }
+
+
 
     @Override
     protected void onStart() {
@@ -99,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     @Override
     protected void onResume() {
         super.onResume();
-        this.configureRecyclerView();
+        this.configureHomeView();
     }
 
     /**
@@ -141,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     @Subscribe
     public void onRemoveMeeting(DeleteMeetingEvent pDeleteMeetingEvent) {
         mMeetingApiService.removeMeeting(pDeleteMeetingEvent.getMeeting());
-        this.initList();
+        this.configureHomeView();
     }
 
     // Inflate the filter menu

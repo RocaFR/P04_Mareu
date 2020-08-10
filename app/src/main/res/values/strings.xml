@@ -19,4 +19,5 @@
     <string name="fragment_filter_pickMeeting">Pick a Meeting Room...</string>
     <string name="pick_date_filter">Please pick a beginning and ending date</string>
     <string name="date_picking_error">The beginning date cannot be after the ending date</string>
+    <string name="activity_main_textView_noMeeting">No Meeting available</string>
 </resources>

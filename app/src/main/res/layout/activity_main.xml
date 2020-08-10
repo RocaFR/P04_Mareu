@@ -7,7 +7,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:text="No Meeting available"
+        android:id="@+id/activity_main_textView_noMeeting"
+        android:text="@string/activity_main_textView_noMeeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
