@@ -58,6 +58,10 @@ public class Meeting {
         this.participantsList = pParticipantsList;
     }
 
+    public Meeting() {
+
+    }
+
     ///
     /// GETTERS
     ///

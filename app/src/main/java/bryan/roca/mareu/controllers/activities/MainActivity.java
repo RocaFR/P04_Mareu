@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
     /**
      * Fired when the user tap the Image Remove Button
+     *
      * @param pDeleteMeetingEvent the Meeting to remove
      */
     @Subscribe
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     // Fired when filter button was clicked
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if ( item.getItemId() == R.id.menuMain_item_filter ) {
+        if (item.getItemId() == R.id.menuMain_item_filter) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             LayoutInflater inflater = LayoutInflater.from(this);
             View view = inflater.inflate(R.layout.fragment_filter_meetings, null);
@@ -207,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                 public void onClick(DialogInterface dialog, int which) {
                     List<Meeting> filteredMeetings;
                     if (mFilterMode == FILTER_MODE_MEETINGROOM) {
-                        filteredMeetings = mMeetingApiService.getMeetings((MeetingRoom)spinner.getSelectedItem());
+                        filteredMeetings = mMeetingApiService.getMeetings((MeetingRoom) spinner.getSelectedItem());
                         mMeetingAdapter = new MeetingAdapter(filteredMeetings);
                         mRecyclerView.setAdapter(mMeetingAdapter);
                     } else if (mFilterMode == FILTER_MODE_DATE) {
@@ -259,8 +260,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                 public void afterTextChanged(Editable s) {
                     mTextViewPickAMeetingRoomText.setVisibility(View.GONE);
                     spinner.setVisibility(View.GONE);
-                    spinner.setEnabled(false);
-                    spinner.setClickable(false);
                     mFilterMode = FILTER_MODE_DATE;
                 }
             });
@@ -279,8 +278,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                 public void afterTextChanged(Editable s) {
                     mTextViewPickAMeetingRoomText.setVisibility(View.GONE);
                     spinner.setVisibility(View.GONE);
-                    spinner.setEnabled(false);
-                    spinner.setClickable(false);
                     mFilterMode = FILTER_MODE_DATE;
                 }
             });
@@ -292,13 +289,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
     // Update the Date TextView for filter
     @Override
+
     public void onDateChange(String pTag, String pI, String pI1, String pI2) {
         switch (pTag) {
             case "filterDateBeginPicker":
-                mTextViewFilterDateBegin.setText(pI2 + "/" + pI1 + "/" +pI);
+                mTextViewFilterDateBegin.setText(pI2 + "/" + pI1 + "/" + pI);
                 break;
             case "filterDateEndPicker":
-                mTextViewFilterDateEnd.setText(pI2 + "/" + pI1 + "/" +pI);
+                mTextViewFilterDateEnd.setText(pI2 + "/" + pI1 + "/" + pI);
                 break;
         }
     }
