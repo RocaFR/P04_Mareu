@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     public static final int FILTER_MODE_MEETINGROOM = 0;
     public static final int FILTER_MODE_DATE = 1;
     private TextView mTextViewNoMeeting;
+    private ImageView mImageViewPeople;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         mRecyclerView = findViewById(R.id.recyclerView);
         floatingActionButtonAddMeeting = findViewById(R.id.floatingButton_addMeeting);
         mTextViewNoMeeting = findViewById(R.id.activity_main_textView_noMeeting);
+        mImageViewPeople = findViewById(R.id.activity_main_imageView_people);
 
         /** // Data
          List<Collaborator> collaboratorList = Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("solene.moussion@gmail.com"), new Collaborator("marineducap33@free.fr"));
@@ -88,17 +91,20 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         this.configureFloatingActionButtonAddMeeting();
     }
 
+    /**
+     * Configure the Home view when the list is empty, or not !
+     */
     private void configureHomeView() {
         mMeetingList = mMeetingApiService.getMeetings();
         if (mMeetingList.isEmpty()) {
             mTextViewNoMeeting.setVisibility(View.VISIBLE);
+            mImageViewPeople.setVisibility(View.VISIBLE);
         } else {
             mTextViewNoMeeting.setVisibility(View.GONE);
+            mImageViewPeople.setVisibility(View.GONE);
         }
         this.configureRecyclerView();
     }
-
-
 
     @Override
     protected void onStart() {
