@@ -7,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,17 +31,15 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import bryan.roca.mareu.R;
 import bryan.roca.mareu.controllers.fragments.DatePickerFragment;
 import bryan.roca.mareu.event.DeleteMeetingEvent;
-import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;
 import bryan.roca.mareu.service.MeetingApiService;
-import bryan.roca.mareu.ui.di.DI;
+import bryan.roca.mareu.DI.DI;
 import bryan.roca.mareu.utils.SetupDatesForTextViews;
 import bryan.roca.mareu.views.MeetingAdapter;
 
@@ -77,15 +74,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
         floatingActionButtonAddMeeting = findViewById(R.id.floatingButton_addMeeting);
         mTextViewNoMeeting = findViewById(R.id.activity_main_textView_noMeeting);
         mImageViewPeople = findViewById(R.id.activity_main_imageView_people);
-
-        /** // Data
-         List<Collaborator> collaboratorList = Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("solene.moussion@gmail.com"), new Collaborator("marineducap33@free.fr"));
-        Meeting meeting = new Meeting(DateTime.now(), DateTime.now().plusMinutes(45), mMeetingApiService.getMeetingRooms().get(0), "Test", collaboratorList);
-        Meeting meeting2 = new Meeting(DateTime.now().plusMinutes(60), DateTime.now().plusMinutes(120), mMeetingApiService.getMeetingRooms().get(1), "Test 2", collaboratorList);
-        Meeting meeting3 = new Meeting(DateTime.now().plusDays(1), DateTime.now().plusDays(1).plusMinutes(45), mMeetingApiService.getMeetingRooms().get(1), "Test 3", collaboratorList);
-        mMeetingApiService.addMeeting(meeting);
-        mMeetingApiService.addMeeting(meeting2);
-        mMeetingApiService.addMeeting(meeting3);**/
 
         this.configureHomeView();
         this.configureFloatingActionButtonAddMeeting();

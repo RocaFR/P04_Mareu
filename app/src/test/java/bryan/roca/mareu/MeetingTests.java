@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import bryan.roca.mareu.ui.di.DI;
+import bryan.roca.mareu.DI.DI;
 import bryan.roca.mareu.models.Collaborator;
 import bryan.roca.mareu.models.Meeting;
 import bryan.roca.mareu.models.MeetingRoom;
