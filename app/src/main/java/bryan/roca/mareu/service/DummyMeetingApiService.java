@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
+import org.joda.time.MutableDateTime;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,10 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public List<Meeting> getMeetings(DateTime pDateTimeBegin, DateTime pDateTimeEnd) {
         // Adding hours for enable overlaps
-        pDateTimeEnd = pDateTimeEnd.plusHours(23).plusMinutes(59);
+        MutableDateTime mdt = pDateTimeEnd.toMutableDateTime();
+        mdt.setHourOfDay(23);
+        mdt.setMinuteOfHour(59);
+        pDateTimeEnd = mdt.toDateTime();
         mMeetingList = getMeetings();
         List<Meeting> meetingListByDateRange = new ArrayList<>();
 
