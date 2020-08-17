@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
             mTextViewFilterDateBegin.setHint(setup.getDayOfMonthBegin() + "/" + setup.getMonthOfYearBegin() + "/" + setup.getYear());
             mTextViewFilterDateEnd.setHint(setup.getDayOfMonthEnd() + "/" + setup.getMonthOfYearEnd() + "/" + setup.getYear());
 
+            // Pop the Date picker for the beginning date
             mTextViewFilterDateBegin.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -185,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                     dialogFragment.show(getSupportFragmentManager(), "filterDateBeginPicker");
                 }
             });
+            // Pop the Date picker for ending date
             mTextViewFilterDateEnd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -192,6 +194,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                     dialogFragment.show(getSupportFragmentManager(), "filterDateEndPicker");
                 }
             });
+
+            // Configure the Spinner
             final Spinner spinner = view.findViewById(R.id.fragment_filter_spinner_MeetingRoom);
             final List<MeetingRoom> meetingRoomsFiltered = new ArrayList<>();
             ArrayAdapter<MeetingRoom> meetingRoomArrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, meetingRoomsFiltered);
@@ -201,6 +205,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                 }
             }
             spinner.setAdapter(meetingRoomArrayAdapter);
+            // Set the filter mode
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -216,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
             builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    // Adapt the AlertDialog UI depending the filter mode
                     List<Meeting> filteredMeetings;
                     if (mFilterMode == FILTER_MODE_MEETINGROOM) {
                         filteredMeetings = mMeetingApiService.getMeetings((MeetingRoom) spinner.getSelectedItem());
