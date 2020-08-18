@@ -1,5 +1,7 @@
 package bryan.roca.mareu;
 
+import android.support.annotation.NonNull;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,6 +30,16 @@ public class MeetingTests {
     @Before
     public void setup() {
         mMeetingApiService = DI.getNewInstanceMeetingApiService();
+    }
+
+    /**
+     * Assert that ApiService is a Singleton
+     */
+    @Test
+    public void canWeGetApiService() {
+        MeetingApiService apiService = DI.getMeetingApiService();
+        MeetingApiService secondApiService = DI.getMeetingApiService();
+        assertSame(apiService, secondApiService);
     }
 
     /**
@@ -77,6 +89,49 @@ public class MeetingTests {
 
         List<Meeting> filteredList = mMeetingApiService.getMeetings(mMeeting.getPlace());
         assertTrue(filteredList.get(0).getPlace() == mMeeting.getPlace());
+    }
+
+    /**
+     * Assert we can filter the Meeting list by date range
+     */
+    @Test
+    public void canWeGetMeetingFromInterval() {
+        // Initialize mMeeting
+        this.configureAMeeting();
+        // Initialize meeting2
+        DateTime beginningDate = mMeeting.getDateBegin().plusDays(1);
+        DateTime endDate = beginningDate.plusMinutes(30);
+        int randomMeetingRoomID = (int)(Math.random() * mMeetingApiService.getMeetingRooms().size());
+        Meeting meeting2 = new Meeting(beginningDate, endDate, mMeetingRoom, "Event Storming", Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
+
+        List<Meeting> meetingList = mMeetingApiService.getMeetings();
+        meetingList.add(mMeeting);
+        meetingList.add(meeting2);
+
+        List<Meeting> meetingsListFiletered = mMeetingApiService.getMeetings(mMeeting.getDateBegin(), mMeeting.getDateEnd());
+        assertFalse(meetingsListFiletered.contains(meeting2));
+    }
+
+    /**
+     * Assert we get the original meeting list if a error is occurred in getMeeting by date range
+     */
+    @Test
+    public void assertCanWeGetOriginalListIfErrorDateRange() {
+        // Initialize mMeeting
+        this.configureAMeeting();
+        // Initialize meeting2
+        DateTime beginningDate = mMeeting.getDateBegin().plusDays(1);
+        DateTime endDate = beginningDate.plusMinutes(30);
+        int randomMeetingRoomID = (int)(Math.random() * mMeetingApiService.getMeetingRooms().size());
+        Meeting meeting2 = new Meeting(beginningDate, endDate, mMeetingRoom, "Event Storming", Arrays.asList(new Collaborator("bryan.ferreras@gmail.com"), new Collaborator("moussion.solene@gmail.com")));
+
+        List<Meeting> meetingList = mMeetingApiService.getMeetings();
+        meetingList.add(mMeeting);
+        meetingList.add(meeting2);
+
+        List<Meeting> meetingListFiltered = mMeetingApiService.getMeetings(mMeeting.getDateEnd(), mMeeting.getDateBegin());
+        assertTrue(meetingListFiltered.isEmpty());
+        assertEquals(2, meetingList.size());
     }
 
     /**
