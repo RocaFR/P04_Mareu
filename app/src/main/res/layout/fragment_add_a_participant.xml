@@ -19,12 +19,13 @@
         android:textColor="@android:color/black"
         android:textStyle="bold"/>
 
-    android:autoLink="email"
+
     <EditText
         android:id="@+id/fragment_add_participant_editText_mail_address"
         android:background="@drawable/bg_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:autoLink="email"
         app:layout_constraintTop_toBottomOf="@id/fragment_add_participant_textView_title"
         android:layout_marginTop="@dimen/margintop_edittext"
         android:textSize="@dimen/size_meetingName"

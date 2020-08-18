@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private int mFilterMode;
     public static final int FILTER_MODE_MEETINGROOM = 0;
     public static final int FILTER_MODE_DATE = 1;
+    public static final String ALERTDIALOG_FILTER_POSITIVE_TEXT = "Filter";
+    public static final String ALERTDIALOG_FILTER_NEUTRAL_TEXT = "Reset";
+    public static final String ALERTDIALOG_FILTER_NEGATIVE_TEXT = "Cancel";
     private TextView mTextViewNoMeeting;
     private ImageView mImageViewPeople;
 
@@ -218,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                 }
             });
             builder.setView(view);
-            builder.setPositiveButton("Filter", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(ALERTDIALOG_FILTER_POSITIVE_TEXT, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // Adapt the AlertDialog UI depending the filter mode
@@ -244,14 +247,14 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                     }
                 }
             });
-            builder.setNeutralButton("Reset", new DialogInterface.OnClickListener() {
+            builder.setNeutralButton(ALERTDIALOG_FILTER_NEUTRAL_TEXT, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     mMeetingAdapter = new MeetingAdapter(mMeetingList);
                     mRecyclerView.setAdapter(mMeetingAdapter);
                 }
             });
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(ALERTDIALOG_FILTER_NEGATIVE_TEXT, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
