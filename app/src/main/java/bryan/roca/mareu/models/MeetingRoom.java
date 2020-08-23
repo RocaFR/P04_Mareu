@@ -16,11 +16,15 @@ public class MeetingRoom {
      * The name of the Meeting Room.
      */
     private String name;
+
     /**
      * The maximum capacity of the Meeting Room.<br>
      * Default set to 5, but may be change if needed.
      */
     private int maxNumberCapacity = 5;
+
+
+    public static final String BAD_NAME_LENGTH_ERROR = "Name is too short, please change it !";
 
     /**
      * Default constructor
@@ -55,7 +59,7 @@ public class MeetingRoom {
      */
     public void setName(String pName) {
         if (pName.length() < 1) {
-            this.name = "A Meeting Room";
+            this.name = BAD_NAME_LENGTH_ERROR;
         } else {
             this.name = pName;
         }

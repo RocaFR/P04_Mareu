@@ -2,6 +2,10 @@ package bryan.roca.mareu.models;
 
 import android.support.annotation.NonNull;
 
+import bryan.roca.mareu.utils.IsEmailValid;
+
+import static bryan.roca.mareu.utils.IsEmailValid.isEmailAddressValid;
+
 /**
  * Mareu - bryan.roca.mareu.models<br>
  *
@@ -12,7 +16,15 @@ import android.support.annotation.NonNull;
  */
 public class Collaborator {
 
+    /**
+     * The email address of the Collaborator
+     */
     private String id;
+
+    /**
+     * Message error assigned for ID
+     */
+    public static final String BAD_COLLABORATOR_ID_ERROR = "Bad email please set it !";
 
     /**
      * Default constructor.
@@ -43,8 +55,8 @@ public class Collaborator {
      * @param pId the ID of the Collaborator
      */
     public void setId(String pId) {
-        if (pId.length() < 5) {
-            this.id = "collaborator@company.com";
+        if (!isEmailAddressValid(pId)) {
+            this.id = BAD_COLLABORATOR_ID_ERROR;
         } else {
             this.id = pId;
         }

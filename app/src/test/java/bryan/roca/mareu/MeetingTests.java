@@ -3,6 +3,7 @@ package bryan.roca.mareu;
 import android.support.annotation.NonNull;
 
 import org.joda.time.DateTime;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,6 +67,43 @@ public class MeetingTests {
     public void canWeCreateNewMeeting() {
         this.configureAMeeting();
         assertNotNull(mMeeting);
+    }
+
+    /**
+     * Check if the email address assignation works fine
+     */
+    @Test
+    public void checkCollaboratorIdLength() {
+        Collaborator badCollaborator = new Collaborator("bademail.com");
+        assertEquals(Collaborator.BAD_COLLABORATOR_ID_ERROR, badCollaborator.getId());
+
+        Collaborator goodCollaborator = new Collaborator("a@a.com");
+        assertNotSame(Collaborator.BAD_COLLABORATOR_ID_ERROR, goodCollaborator.getId());
+    }
+
+    /**
+     * Check if the Meeting Room's name assignation works fine
+     */
+    @Test
+    public void checkMeetingRoomNameLength() {
+        MeetingRoom badMeetingRoom = new MeetingRoom("");
+        assertSame(MeetingRoom.BAD_NAME_LENGTH_ERROR, badMeetingRoom.getName());
+
+        MeetingRoom goodMeetingRoom = new MeetingRoom("A Meeting Room");
+        assertFalse(MeetingRoom.BAD_NAME_LENGTH_ERROR == goodMeetingRoom.getName());
+    }
+
+    /**
+     * Check if the Meeting Room maximum number capacity assignation works fine
+     */
+    @Test
+    public void checkMeetingRoomMaxNumberCapacity() {
+        MeetingRoom meetingRoom = new MeetingRoom("A Meeting Room");
+        meetingRoom.setMaxNumberCapacity(1);
+        assertEquals(5, meetingRoom.getMaxNumberCapacity());
+
+        meetingRoom.setMaxNumberCapacity(10);
+        assertEquals(10, meetingRoom.getMaxNumberCapacity());
     }
 
     /**
