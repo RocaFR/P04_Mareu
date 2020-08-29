@@ -90,7 +90,7 @@ public class MeetingTests {
         assertSame(MeetingRoom.BAD_NAME_LENGTH_ERROR, badMeetingRoom.getName());
 
         MeetingRoom goodMeetingRoom = new MeetingRoom("A Meeting Room");
-        assertFalse(MeetingRoom.BAD_NAME_LENGTH_ERROR == goodMeetingRoom.getName());
+        assertNotSame(MeetingRoom.BAD_NAME_LENGTH_ERROR, goodMeetingRoom.getName());
     }
 
     /**
