@@ -55,10 +55,12 @@ public class Collaborator {
      * @param pId the ID of the Collaborator
      */
     public void setId(String pId) {
-        if (!isEmailAddressValid(pId)) {
+        // Removing the whitespaces
+        String cleanediD = pId.replaceAll("\\s+", "");
+        if (!isEmailAddressValid(cleanediD)) {
             this.id = BAD_COLLABORATOR_ID_ERROR;
         } else {
-            this.id = pId;
+            this.id = cleanediD;
         }
     }
 
