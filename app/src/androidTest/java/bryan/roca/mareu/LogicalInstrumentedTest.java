@@ -24,6 +24,9 @@ import org.junit.runner.RunWith;
 
 import bryan.roca.mareu.controllers.activities.MainActivity;
 import bryan.roca.mareu.controllers.fragments.DatePickerFragment;
+import bryan.roca.mareu.models.MeetingRoom;
+import bryan.roca.mareu.service.DummyMeetingApiService;
+import bryan.roca.mareu.service.MeetingApiService;
 import bryan.roca.mareu.utils.RecyclerViewMatcher;
 import bryan.roca.mareu.utils.RemoveMeetingAction;
 
@@ -32,13 +35,18 @@ import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.*;
 
@@ -161,7 +169,63 @@ public class LogicalInstrumentedTest {
 
     @Test
     public void canWeFilterMeetingByMeetingRoom() {
-        //TODO Comment sélectionner un élément dans un spinner
+        MeetingApiService meetingApiService = new DummyMeetingApiService();
+        MeetingRoom meetingRoom = meetingApiService.getMeetingRooms().get(1);
+
+        // First Meeting
+        onView(withId(R.id.floatingButton_addMeeting))
+                .perform(click());
+        onView(withId(R.id.editText_addMeeting_activity_meetingName))
+                .perform(typeText(firstMeetingName));
+        onView(withId(R.id.textView_addMeeting_activity_dateBegin))
+                .perform(setTextInTextView(BEGIN_DATE_FIRST_MEETING));
+        onView(withId(R.id.textView_addMeeting_activity_dateEnd))
+                .perform(scrollTo(), setTextInTextView(END_DATE_FIRST_MEETING));
+        onView(withId(R.id.imageButton_addMeeting_activity_addParticipant))
+                .perform(scrollTo(), click());
+        onView(withId(R.id.fragment_add_participant_editText_mail_address))
+                .perform(typeText(firstMeetingEmail));
+        onView(withText(R.string.alert_dialog_positive_button))
+                .perform(click());
+        onView(withId(R.id.imageButton_addMeeting_activity_addMeeting))
+                .perform(scrollTo(), click());
+
+        // Second Meeting
+        onView(withId(R.id.floatingButton_addMeeting))
+                .perform(click());
+        onView(withId(R.id.editText_addMeeting_activity_meetingName))
+                .perform(typeText(secondMeetingName));
+        onView(withId(R.id.textView_addMeeting_activity_dateBegin))
+                .perform(scrollTo(), setTextInTextView(BEGIN_DATE_SECOND_MEETING));
+        onView(withId(R.id.textView_addMeeting_activity_dateEnd))
+                .perform(scrollTo(), setTextInTextView(END_DATE_SECOND_MEETING));
+        onView(withId(R.id.spinner_addMeeting_activity_meetingRoom))
+                .perform(scrollTo(), click());
+        onData(allOf(is(instanceOf(MeetingRoom.class)), is(meetingRoom)))
+                .perform(click());
+        onView(withId(R.id.imageButton_addMeeting_activity_addParticipant))
+                .perform(scrollTo(), click());
+        onView(withId(R.id.fragment_add_participant_editText_mail_address))
+                .perform(typeText(firstMeetingEmail));
+        onView(withText(R.string.alert_dialog_positive_button))
+                .perform(click());
+        onView(withId(R.id.imageButton_addMeeting_activity_addMeeting))
+                .perform(scrollTo(), click());
+
+        onView(withId(R.id.menuMain_item_filter))
+                .perform(click());
+
+        onView(withId(R.id.fragment_filter_spinner_MeetingRoom))
+                .perform(click());
+        onData(allOf(is(instanceOf(MeetingRoom.class)), is(meetingRoom)))
+                .inRoot(isPlatformPopup())
+                .perform(click());
+        onView(withText(R.string.item_filter))
+                .perform(click());
+
+        onView(withRecyclerView(R.id.recyclerView).atPosition(0))
+                .check(matches(hasDescendant(withText(meetingRoom.getName()))));
+
     }
 
     @Test
