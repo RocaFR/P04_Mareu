@@ -58,10 +58,10 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class LogicalInstrumentedTest {
 
-    private String firstMeetingName = "Instrumental Test";
-    private String secondMeetingName = "Another Meeting";
-    private String firstMeetingEmail = "bryan.ferreras@gmail.com";
-    private String secondMeetingEmail = "moussion.solene@gmail.com";
+    final private String firstMeetingName = "Instrumental Test";
+    final private String secondMeetingName = "Another Meeting";
+    final private String firstMeetingEmail = "bryan.ferreras@gmail.com";
+    final private String secondMeetingEmail = "moussion.solene@gmail.com";
     private static final String BEGIN_DATE_FIRST_MEETING = "01/01/2020";
     private static final String END_DATE_FIRST_MEETING = "01/01/2020";
     private static final String BEGIN_DATE_SECOND_MEETING = "02/01/2020";
@@ -72,7 +72,7 @@ public class LogicalInstrumentedTest {
      */
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule(MainActivity.class);
+            new ActivityTestRule(MainActivity.class, false, false);
 
     @Test
     public void useAppContext() {
@@ -84,9 +84,11 @@ public class LogicalInstrumentedTest {
     /**
      * Ensure the message proposing to add a Meeting is displayed if there is no Meetings
      */
-    @Test
+   @Test
     public void isTextViewVisibleIfNoMeeting() {
-        onView(withId(R.id.activity_main_textView_noMeeting))
+       mActivityRule.launchActivity(null);
+
+       onView(withId(R.id.activity_main_textView_noMeeting))
                 .check(matches(isDisplayed()));
     }
 
@@ -95,6 +97,8 @@ public class LogicalInstrumentedTest {
      */
     @Test
     public void canWeAddAndSeeMeetingList() {
+        mActivityRule.launchActivity(null);
+
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
         onView(withId(R.id.editText_addMeeting_activity_meetingName))
@@ -114,6 +118,8 @@ public class LogicalInstrumentedTest {
 
     @Test
     public void canWeFilterMeetingByDate() {
+        mActivityRule.launchActivity(null);
+
         // First Meeting
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
@@ -169,6 +175,8 @@ public class LogicalInstrumentedTest {
 
     @Test
     public void canWeFilterMeetingByMeetingRoom() {
+        mActivityRule.launchActivity(null);
+
         MeetingApiService meetingApiService = new DummyMeetingApiService();
         MeetingRoom meetingRoom = meetingApiService.getMeetingRooms().get(1);
 
@@ -230,6 +238,8 @@ public class LogicalInstrumentedTest {
 
     @Test
     public void canWeRemoveMeeting() {
+        mActivityRule.launchActivity(null);
+
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
         onView(withId(R.id.editText_addMeeting_activity_meetingName))
