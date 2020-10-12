@@ -308,7 +308,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
     // Update the Date TextView for filter
     @Override
-
     public void onDateChange(String pTag, String pI, String pI1, String pI2) {
         switch (pTag) {
             case "filterDateBeginPicker":

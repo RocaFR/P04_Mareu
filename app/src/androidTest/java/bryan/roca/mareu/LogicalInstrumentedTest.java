@@ -4,26 +4,19 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.UiController;
 import android.support.test.espresso.ViewAction;
-import android.support.test.espresso.contrib.PickerActions;
 import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.DatePicker;
 import android.widget.TextView;
 
 import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
-import org.joda.time.DateTime;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import bryan.roca.mareu.controllers.activities.MainActivity;
-import bryan.roca.mareu.controllers.fragments.DatePickerFragment;
 import bryan.roca.mareu.models.MeetingRoom;
 import bryan.roca.mareu.service.DummyMeetingApiService;
 import bryan.roca.mareu.service.MeetingApiService;
@@ -39,12 +32,9 @@ import static android.support.test.espresso.matcher.RootMatchers.isPlatformPopup
 import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withClassName;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -61,7 +51,6 @@ public class LogicalInstrumentedTest {
     final private String firstMeetingName = "Instrumental Test";
     final private String secondMeetingName = "Another Meeting";
     final private String firstMeetingEmail = "bryan.ferreras@gmail.com";
-    final private String secondMeetingEmail = "moussion.solene@gmail.com";
     private static final String BEGIN_DATE_FIRST_MEETING = "01/01/2020";
     private static final String END_DATE_FIRST_MEETING = "01/01/2020";
     private static final String BEGIN_DATE_SECOND_MEETING = "02/01/2020";
@@ -72,13 +61,14 @@ public class LogicalInstrumentedTest {
      */
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule(MainActivity.class, false, false);
+            new ActivityTestRule<>(MainActivity.class, true, true);
 
     @Test
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("bryan.roca.mareu", appContext.getPackageName());
+
     }
 
     /**
@@ -86,19 +76,15 @@ public class LogicalInstrumentedTest {
      */
    @Test
     public void isTextViewVisibleIfNoMeeting() {
-       mActivityRule.launchActivity(null);
-
        onView(withId(R.id.activity_main_textView_noMeeting))
                 .check(matches(isDisplayed()));
-    }
+   }
 
     /**
      * Ensure the RecyclerView display the added Meeting list
      */
     @Test
     public void canWeAddAndSeeMeetingList() {
-        mActivityRule.launchActivity(null);
-
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
         onView(withId(R.id.editText_addMeeting_activity_meetingName))
@@ -118,8 +104,6 @@ public class LogicalInstrumentedTest {
 
     @Test
     public void canWeFilterMeetingByDate() {
-        mActivityRule.launchActivity(null);
-
         // First Meeting
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
@@ -170,13 +154,10 @@ public class LogicalInstrumentedTest {
         // Assert that the Meeting displayed is the good one
         onView(withRecyclerView(R.id.recyclerView).atPosition(0))
                 .check(matches(not(hasDescendant(withText(BEGIN_DATE_FIRST_MEETING)))));
-
     }
 
     @Test
     public void canWeFilterMeetingByMeetingRoom() {
-        mActivityRule.launchActivity(null);
-
         MeetingApiService meetingApiService = new DummyMeetingApiService();
         MeetingRoom meetingRoom = meetingApiService.getMeetingRooms().get(1);
 
@@ -233,13 +214,10 @@ public class LogicalInstrumentedTest {
 
         onView(withRecyclerView(R.id.recyclerView).atPosition(0))
                 .check(matches(hasDescendant(withText(meetingRoom.getName()))));
-
     }
 
     @Test
     public void canWeRemoveMeeting() {
-        mActivityRule.launchActivity(null);
-
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
         onView(withId(R.id.editText_addMeeting_activity_meetingName))
