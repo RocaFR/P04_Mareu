@@ -54,5 +54,9 @@ public interface MeetingApiService {
      */
     List<MeetingRoom> getMeetingRooms();
 
+    /**
+     * Useful for the Instrumented tests.<br>
+     * Clean the Meetings list
+     */
     void clean();
 }
