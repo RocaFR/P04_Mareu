@@ -33,6 +33,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import bryan.roca.mareu.App;
 import bryan.roca.mareu.R;
 import bryan.roca.mareu.controllers.fragments.DatePickerFragment;
 import bryan.roca.mareu.event.DeleteMeetingEvent;
@@ -46,7 +47,6 @@ import bryan.roca.mareu.views.MeetingAdapter;
 
 public class MainActivity extends AppCompatActivity implements DatePickerFragment.OnDateChangeListener {
 
-    private MeetingApiService mMeetingApiService;
     private RecyclerView mRecyclerView;
     private List<Meeting> mMeetingList;
     private MeetingAdapter mMeetingAdapter;
@@ -69,9 +69,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
         setContentView(R.layout.activity_main);
 
-        // Service
-        mMeetingApiService = DI.getMeetingApiService();
-
         // Views
         mRecyclerView = findViewById(R.id.recyclerView);
         floatingActionButtonAddMeeting = findViewById(R.id.floatingButton_addMeeting);
@@ -86,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      * Configure the Home view when the list is empty, or not !
      */
     private void configureHomeView() {
-        mMeetingList = mMeetingApiService.getMeetings();
+        mMeetingList = App.service.getMeetings();
         if (mMeetingList.isEmpty()) {
             mTextViewNoMeeting.setVisibility(View.VISIBLE);
             mImageViewPeople.setVisibility(View.VISIBLE);
@@ -141,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      * Initialize and update the Recyclerview's list
      */
     private void initList() {
-        mMeetingList = mMeetingApiService.getMeetings();
+        mMeetingList = App.service.getMeetings();
         mMeetingAdapter = new MeetingAdapter(mMeetingList);
         mRecyclerView.setAdapter(mMeetingAdapter);
     }
@@ -153,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
      */
     @Subscribe
     public void onRemoveMeeting(DeleteMeetingEvent pDeleteMeetingEvent) {
-        mMeetingApiService.removeMeeting(pDeleteMeetingEvent.getMeeting());
+        App.service.removeMeeting(pDeleteMeetingEvent.getMeeting());
         this.configureHomeView();
     }
 
@@ -227,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                     // Adapt the AlertDialog UI depending the filter mode
                     List<Meeting> filteredMeetings;
                     if (mFilterMode == FILTER_MODE_MEETINGROOM) {
-                        filteredMeetings = mMeetingApiService.getMeetings((MeetingRoom) spinner.getSelectedItem());
+                        filteredMeetings = App.service.getMeetings((MeetingRoom) spinner.getSelectedItem());
                         mMeetingAdapter = new MeetingAdapter(filteredMeetings);
                         mRecyclerView.setAdapter(mMeetingAdapter);
                     } else if (mFilterMode == FILTER_MODE_DATE) {
@@ -238,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
                             String dateEndFromInput = mTextViewFilterDateEnd.getText().toString();
                             DateTime dateBegin = formatter.parseDateTime(dateBeginFromInput);
                             DateTime dateEnd = formatter.parseDateTime(dateEndFromInput);
-                            filteredMeetings = mMeetingApiService.getMeetings(dateBegin, dateEnd);
+                            filteredMeetings = App.service.getMeetings(dateBegin, dateEnd);
                             mMeetingAdapter = new MeetingAdapter(filteredMeetings);
                             mRecyclerView.setAdapter(mMeetingAdapter);
                         } else {

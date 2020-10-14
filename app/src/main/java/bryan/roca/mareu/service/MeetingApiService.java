@@ -53,4 +53,6 @@ public interface MeetingApiService {
      * @return all of Meeting Rooms
      */
     List<MeetingRoom> getMeetingRooms();
+
+    void clean();
 }

@@ -101,4 +101,9 @@ public class DummyMeetingApiService implements MeetingApiService {
     public List<MeetingRoom> getMeetingRooms() {
         return mMeetingRoomsList;
     }
+
+    @Override
+    public void clean() {
+        mMeetingList.clear();
+    }
 }

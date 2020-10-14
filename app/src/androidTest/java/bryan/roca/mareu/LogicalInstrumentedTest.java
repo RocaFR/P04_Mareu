@@ -61,14 +61,15 @@ public class LogicalInstrumentedTest {
      */
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule =
-            new ActivityTestRule<>(MainActivity.class, true, true);
+            new ActivityTestRule<>(MainActivity.class, false, false);
 
     @Test
     public void useAppContext() {
+        App.service.clean();
+        mActivityRule.launchActivity(null);
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("bryan.roca.mareu", appContext.getPackageName());
-
     }
 
     /**
@@ -76,6 +77,9 @@ public class LogicalInstrumentedTest {
      */
    @Test
     public void isTextViewVisibleIfNoMeeting() {
+       App.service.clean();
+       mActivityRule.launchActivity(null);
+
        onView(withId(R.id.activity_main_textView_noMeeting))
                 .check(matches(isDisplayed()));
    }
@@ -85,6 +89,9 @@ public class LogicalInstrumentedTest {
      */
     @Test
     public void canWeAddAndSeeMeetingList() {
+        App.service.clean();
+        mActivityRule.launchActivity(null);
+
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
         onView(withId(R.id.editText_addMeeting_activity_meetingName))
@@ -104,6 +111,9 @@ public class LogicalInstrumentedTest {
 
     @Test
     public void canWeFilterMeetingByDate() {
+        App.service.clean();
+        mActivityRule.launchActivity(null);
+
         // First Meeting
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
@@ -158,6 +168,9 @@ public class LogicalInstrumentedTest {
 
     @Test
     public void canWeFilterMeetingByMeetingRoom() {
+        App.service.clean();
+        mActivityRule.launchActivity(null);
+
         MeetingApiService meetingApiService = new DummyMeetingApiService();
         MeetingRoom meetingRoom = meetingApiService.getMeetingRooms().get(1);
 
@@ -218,6 +231,9 @@ public class LogicalInstrumentedTest {
 
     @Test
     public void canWeRemoveMeeting() {
+        App.service.clean();
+        mActivityRule.launchActivity(null);
+
         onView(withId(R.id.floatingButton_addMeeting))
                 .perform(click());
         onView(withId(R.id.editText_addMeeting_activity_meetingName))

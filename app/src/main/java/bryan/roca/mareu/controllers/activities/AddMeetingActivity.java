@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import bryan.roca.mareu.App;
 import bryan.roca.mareu.R;
 import bryan.roca.mareu.controllers.fragments.DatePickerFragment;
 import bryan.roca.mareu.controllers.fragments.TimePickerFragment;
@@ -50,15 +51,12 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
     private ImageButton mImageButtonAddMeeting;
     private ImageButton mImageButtonEmptyParticipantList;
 
-    // Service
-    private MeetingApiService mMeetingApiService;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
         // Service
-        mMeetingApiService = DI.getMeetingApiService();
+        App.service = DI.getMeetingApiService();
 
         // UI
         mEditTextMeetingsName = findViewById(R.id.editText_addMeeting_activity_meetingName);
@@ -104,7 +102,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
                     }
 
                     Meeting meetingToAdd = new Meeting(dateBegin, dateEnd, (MeetingRoom) mSpinner.getSelectedItem(), mEditTextMeetingsName.getText().toString(), theListOfParticipants);
-                    if (mMeetingApiService.addMeeting(meetingToAdd)) {
+                    if (App.service.addMeeting(meetingToAdd)) {
                         Toast.makeText(getBaseContext(), meetingToAdd.getSubject() + R.string.meeting_added, Toast.LENGTH_SHORT).show();
                         finish();
                     } else {
@@ -291,7 +289,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
      * Configure the Meeting Rooms's Spinner
      */
     private void configureMeetingRoomSpinner() {
-        List<MeetingRoom> meetingRoomList = mMeetingApiService.getMeetingRooms();
+        List<MeetingRoom> meetingRoomList = App.service.getMeetingRooms();
         ArrayAdapter<MeetingRoom> meetingRoomArrayAdapter = new ArrayAdapter<>(this, R.layout.spinner_item, meetingRoomList);
         mSpinner.setAdapter(meetingRoomArrayAdapter);
     }
