@@ -22,7 +22,7 @@ import bryan.roca.mareu.models.MeetingRoom;
 public class DummyMeetingApiService implements MeetingApiService {
 
     private List<Meeting> mMeetingList = DummyMeetingGenerator.generateMeetings();
-    private List<MeetingRoom> mMeetingRoomsList = DummyMeetingGenerator.generateMeetingRooms();
+    private final List<MeetingRoom> mMeetingRoomsList = DummyMeetingGenerator.generateMeetingRooms();
 
     /**
      * Get the list of all Meetings
