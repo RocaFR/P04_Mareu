@@ -1,7 +1,7 @@
 # P04_Mareu
 Projet 4 du parcours DA Android d'Openclassrooms
 
-![](https://i.ibb.co/rdGv917/Screenshot-20201014-161322.png)
+![](https://i.ibb.co/V3DW3dR/Screen-uichanges.png)
 
 ## Mareu is the solution to manage Collaborator's Meetings !
 
