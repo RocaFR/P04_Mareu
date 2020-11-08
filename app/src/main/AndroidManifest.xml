@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:name=".App"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MyTheme">
         <activity
             android:name=".controllers.activities.AddMeetingActivity"
             android:parentActivityName=".controllers.activities.MainActivity"

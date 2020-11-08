@@ -1,5 +1,6 @@
 package bryan.roca.mareu.controllers.activities;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -62,10 +63,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     public static final String ALERTDIALOG_FILTER_NEGATIVE_TEXT = "Cancel";
     private TextView mTextViewNoMeeting;
     private ImageView mImageViewPeople;
+    private static Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getApplicationContext();
 
         setContentView(R.layout.activity_main);
 
@@ -77,6 +80,11 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
 
         this.configureHomeView();
         this.configureFloatingActionButtonAddMeeting();
+    }
+
+    // Utils to get Resources from a non Activity Class
+    public static Context findResources() {
+        return mContext;
     }
 
     /**
@@ -131,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerFragmen
     private void configureRecyclerView() {
         this.initList();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
     /**

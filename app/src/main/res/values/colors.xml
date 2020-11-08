@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#b6d3bd</color>
-    <color name="colorPrimaryDark">#618c6b</color>
+    <color name="colorPrimary">#2a88d6</color>
+    <color name="colorPrimaryDark">#1f70b1</color>
     <color name="colorAccent">#304a36</color>
     <color name="backgroundItem">#e5e5e5 </color>
     <color name="buttonAddMeetingTrue">@android:color/black</color>
     <color name="buttonAddMeetingFalse">#E0E0E0</color>
     <color name="textColorLink">@android:color/black</color>
     <color name="spinnerBackgroundDisable">@android:color/black</color>
+
+    <array name="randomMeetingsColors">
+        <item>#FF2A00</item>
+        <item>#FBFF00</item>
+        <item>#5DFF00</item>
+        <item>#00E4FF</item>
+        <item>#0004FF</item>
+        <item>#6400FF</item>
+        <item>#DC00FF</item>
+        <item>#FF00A6</item>
+    </array>
+
 </resources>

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         android:text="Add a Participant"
-        android:textSize="@dimen/size_meetingName"
+        android:textSize="@dimen/size_meetingText"
         android:textColor="@android:color/black"
         android:textStyle="bold"/>
 
@@ -28,7 +28,7 @@
         android:autoLink="email"
         app:layout_constraintTop_toBottomOf="@id/fragment_add_participant_textView_title"
         android:layout_marginTop="@dimen/margintop_edittext"
-        android:textSize="@dimen/size_meetingName"
+        android:textSize="@dimen/size_meetingText"
         android:hint="mail address"
         android:inputType="textEmailAddress"/>
 

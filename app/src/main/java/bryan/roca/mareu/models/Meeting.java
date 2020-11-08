@@ -5,6 +5,10 @@ import org.joda.time.Interval;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
+
+import bryan.roca.mareu.R;
+import bryan.roca.mareu.controllers.activities.MainActivity;
 
 /**
  * <p><Mareu - bryan.roca.mareu.models</p>
@@ -40,6 +44,10 @@ public class Meeting {
      * The participants list of the Meeting. She is represented by a List of Collaborator.
      */
     private List<Collaborator> participantsList;
+    /**
+     * The color assigned to this Meeting.<br>
+     */
+    private int shapeColor;
 
     /**
      * Default constructor
@@ -56,16 +64,18 @@ public class Meeting {
         this.place = pPlace;
         this.subject = pSubject;
         this.participantsList = pParticipantsList;
+        this.shapeColor = this.generateRandomShapeColor();
     }
 
     public Meeting() {
 
     }
 
+
+
     ///
     /// GETTERS
     ///
-
     /**
      * Get the beginning {@link DateTime} of the Meeting.
      * @return the Date where the Meeting begin
@@ -73,7 +83,6 @@ public class Meeting {
     public DateTime getDateBegin() {
         return dateBegin;
     }
-
     /**
      * Get the end {@link DateTime} of the Meeting.
      * @return the Date where the Meeting ending
@@ -114,10 +123,18 @@ public class Meeting {
         return participantsList;
     }
 
+    /**
+     * Get the color (int) who associated to this Meeting
+     * @return the int color
+     */
+    public int getShapeColor() {
+        return this.shapeColor;
+    }
+
+
     ///
     /// SETTERS
     ///
-
     /**
      * Set the beginning {@link Date} of the Meeting.
      * @param pDateBegin the beginning DateTime
@@ -164,5 +181,25 @@ public class Meeting {
      */
     public void setParticipantsList(List<Collaborator> pParticipantsList) {
         participantsList = pParticipantsList;
+    }
+
+    /**
+     * Generate a random int color and assign it.
+     */
+    public void setShapeColor() {
+        this.shapeColor = this.generateRandomShapeColor();
+    }
+
+    ///
+    /// UTILS
+    ///
+
+    /**
+     * Generate a random int color from the array colors.
+     * @return a random int color
+     */
+    private int generateRandomShapeColor() {
+        int[] arrayColors = MainActivity.findResources().getResources().getIntArray(R.array.randomMeetingsColors);
+        return arrayColors[new Random().nextInt(arrayColors.length)];
     }
 }
