@@ -7,4 +7,5 @@
     <dimen name="margintop_edittext">20dp</dimen>
     <dimen name="marginbottom_rootview">50dp</dimen>
     <dimen name="margin_addMeeting_title">5dp</dimen>
+    <dimen name="overallTextSize">14sp</dimen>
 </resources>
