@@ -106,7 +106,7 @@ public class LogicalInstrumentedTest {
                 .perform(scrollTo(), click());
 
         onView(withRecyclerView(R.id.recyclerView).atPosition(0))
-                .check(matches(hasDescendant(withText(firstMeetingName))));
+                .check(matches(hasDescendant(withText(firstMeetingName + " - "))));
     }
 
     @Test
@@ -226,7 +226,7 @@ public class LogicalInstrumentedTest {
                 .perform(click());
 
         onView(withRecyclerView(R.id.recyclerView).atPosition(0))
-                .check(matches(hasDescendant(withText(meetingRoom.getName()))));
+                .check(matches(hasDescendant(withText(meetingRoom.getName() + " - "))));
     }
 
     @Test
