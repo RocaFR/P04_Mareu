@@ -64,6 +64,15 @@ public class Meeting {
         this.place = pPlace;
         this.subject = pSubject;
         this.participantsList = pParticipantsList;
+    }
+
+    public Meeting(DateTime pDateBegin, DateTime pDateEnd, MeetingRoom pPlace, String pSubject, List<Collaborator> pParticipantsList, Boolean pGenerateShapeColor) {
+        this.dateBegin = pDateBegin;
+        this.dateEnd = pDateEnd;
+        this.interval = new Interval(dateBegin, dateEnd);
+        this.place = pPlace;
+        this.subject = pSubject;
+        this.participantsList = pParticipantsList;
         this.shapeColor = this.generateRandomShapeColor();
     }
 

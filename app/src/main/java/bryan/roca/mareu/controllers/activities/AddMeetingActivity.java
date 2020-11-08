@@ -101,7 +101,7 @@ public class AddMeetingActivity extends AppCompatActivity implements DatePickerF
                         theListOfParticipants.add(collaborator);
                     }
 
-                    Meeting meetingToAdd = new Meeting(dateBegin, dateEnd, (MeetingRoom) mSpinner.getSelectedItem(), mEditTextMeetingsName.getText().toString(), theListOfParticipants);
+                    Meeting meetingToAdd = new Meeting(dateBegin, dateEnd, (MeetingRoom) mSpinner.getSelectedItem(), mEditTextMeetingsName.getText().toString(), theListOfParticipants, true);
                     if (App.service.addMeeting(meetingToAdd)) {
                         Toast.makeText(getBaseContext(), meetingToAdd.getSubject() + " added !", Toast.LENGTH_SHORT).show();
                         finish();
